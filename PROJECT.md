@@ -94,6 +94,26 @@ The onboard repository documents a 50 Hz controller and camera streaming over We
 
 The current press kit lists 15 motors, while the locomotion policy interface described below has 14 action outputs. Do not infer the total physical motor count from a policy tensor or older local documentation; confirm the relevant model and joint mapping when building an adapter. [Press kit](https://pollen-robotics.com/microduck/press-kit/), [simulator interface](https://huggingface.co/spaces/pollen-robotics/microduck-simulator/blob/main/README.md)
 
+### Behaviors the platform already exposes (inspected September 5, 2026)
+
+Read from the local official checkout (`duck-ipc-proto`, `robotd`, `robotctl`, `policies/README.md`, `docs/ideas/autonomous_behavior.md`, `docs/project/roadmap.md`). Not run.
+
+| Layer | What exists | Count |
+| --- | --- | --- |
+| Shipped ONNX policies | walking, stand with body pose, sit/stand, ground pick, kick left, kick right, roller, roller crouch, roulade. All 61-observation, 14-action. `robotd` picks the net by a priority chain: roulade > kick > ground pick > sit/rise > stand > walk. | 9 |
+| Continuous command channels | `robot.move` (vx, vy, yaw rate), `robot.head` (neck pitch, head pitch, head yaw, head roll), body pose (z, roll, pitch), `robot.look`. These are the 13-value command block in the observation. | 3 to 4 |
+| One-shot skills (`Skill` enum) | ground pick (~3 s), kick left, kick right (~0.5 s, blind to the ball), sit toggle, roulade (~1 s, chainable). | 5 |
+| Sounds (`SoundTag` enum) | alarm, greet, inquire, peck, chirp, coo, wheee. Voice bank is generated per robot. Mouth is a separate channel. | 7 |
+| Modes | chorale (multi-duck singing over BLE), theremin (depth sensor as instrument). Bench scaffolding, opt-in. | 2 |
+
+The prototype runtime (`apirrone/microduck_runtime`, now not publicly reachable; a public mirror holds only a README) had a 16-state autonomous brain: Chill, LookAround, Wander, TurnInPlace, Zoomies, Startle, Stretch, Ruffle, Preen, Sneeze, Dance, GroundPick, Nap, BallPlay, Petted, Held, driven by an energy/mood model, a novelty grid for wandering, depth-sensor obstacle avoidance, sound reactions, and petting detection. The official daemon has not ported it. Roadmap milestone M9, "The autonomous brain," says it "gets a design doc before it gets code," and the ideas file argues presence, mood, and beat should be inputs to one brain rather than modes beside it. The state names are documented; the recipes behind them (which commands make a Preen) are not available to this project and would have to be re-authored.
+
+Community prior art found the same day, both Apache-2.0: `agentculture/microduck-cli` (JSON-RPC over a socket, a 50 Hz rules and arbitration tick, simulation and fake bodies only, states it "has never driven a real duck") and `shaibuafeez/microduck-ai-world` (an asynchronous vision-language brain over an OpenAI-compatible endpoint that proposes intents such as velocity, search, sit, kick, or pick, with a local wander fallback when offline). The second is close to this project's architecture and should be read before building.
+
+Official roadmap (`docs/project/roadmap.md`, rewritten August 26, 2026) and architecture (`docs/design/architecture.md`), as read the same day: M1 to M4 done (walks, over-the-air updates, recovery net). M5 in progress: camera and WebRTC on the LAN work; the SDK and outside-LAN access are open. M8, policies from the Hugging Face Hub, is next. M9, the brain, is last, "later, deliberately," with no date, and it is a port of the prototype's on-robot state machine into the daemon or a sibling service on the robot. The architecture already reserves a place for this project: section 5.3 says a server-side LLM agent should use a WebSocket, fetch a JPEG frame every second or two, and send intents, because "LLM latency (hundreds of ms to seconds) means the agent is a high-level controller" while "reactive control stays local in robotd." That client does not exist yet. Section 6 requires a deadman (the robot stops when commands stop), intents rather than motor writes, and explicit authority arbitration between the gamepad, app, remote peer, and the autonomous layer, with local preempting remote; the priority order is open question 3. Whether the brain is part of `robotd` or its own service is open question 5.
+
+Implication for the catalogue, not yet decided: the vocabulary probably should not be invented. The 16 prototype states plus the 5 skills and 7 sounds are the natural catalogue, and this project's routines would be scripted compositions of the command channels, skills, and sounds above. The agent layer's contribution is selection, timing, and memory, either as the slow layer above the official brain when M9 lands or as a stand-in for it before then.
+
 ### Simulation
 
 The official browser simulator runs MuJoCo compiled to WebAssembly and ONNX policies locally in the browser. It offers keyboard/gamepad control with a ball and arena. Its documented policy interface uses body state, joint positions/velocities, previous actions, and commands: 61 observation values and 14 position targets. Camera pixels are not the locomotion policy's input. [Open simulator](https://huggingface.co/spaces/pollen-robotics/microduck-simulator), [simulator README](https://huggingface.co/spaces/pollen-robotics/microduck-simulator/blob/main/README.md)
@@ -178,7 +198,7 @@ A short read-only inventory of the adapter targets can happen in parallel: the c
 - Which few routines should define the first experiment, and which are executable in the chosen simulator version?
 - Which simulator offers the simplest programmatic integration, and what camera/command bridge must be built?
 - What owner feedback and observations will count as evidence of an enjoyable interaction for each participant?
-- Whether to add a license before making the repository public, and which one.
+- Whether to adopt the prototype's 16-state vocabulary as the catalogue and re-author its recipes, and how to position this agent layer relative to the official M9 autonomous brain.
 - Which final hardware specifications and APIs will ship, and what model/version mismatches exist between the current local checkouts and upstream?
 
 ## Maintenance
