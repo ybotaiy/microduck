@@ -2,15 +2,17 @@
 
 Last updated: September 5, 2026.
 
-Status: planning. This is the owner's independent personal project, kept separate from the downloaded public robot/simulator projects. The personal GitHub repository must remain private.
+Status: planning, architecture refined. This is the owner's independent personal project, kept separate from the downloaded public robot/simulator projects. The GitHub repository is private as of September 5, 2026; it was audited that day for public release (no secrets, single-commit history, local paths and personal details removed) and the owner may make it public. Nothing that must stay private should be added here; use the local knowledge base for that.
 
 ## Resume here
 
-The owner is a professional software engineer learning robotics. They have preordered Pollen Robotics/Hugging Face Microduck, do not yet have the hardware, and want to explore an expressive virtual/physical robot pet that might be enjoyable for their dog and one-year-old daughter.
+The owner is a professional software engineer learning robotics. They have preordered Pollen Robotics/Hugging Face Microduck, do not yet have the hardware, and want to explore an expressive virtual/physical robot pet that might be enjoyable for people and pets in a household.
 
 The first approach is decided: an AI agent on an external computer or server selects and times a small catalogue of pre-made movement routines using observations, recent interaction history, and owner preferences. Existing controllers execute the movements and maintain balance. The first software experiment should use synthetic events and inspectable action logs; simulation, rendered perception, and physical integration come later.
 
-The personal project root is `/Users/yuanjia/projects/microduck`. The owner explicitly wants additional components and an agent layer, not a fork or copied history of the public projects already downloaded beneath that folder. The existing `microduck-lab/` tree remains external material and is ignored by this repository.
+Architecture refined on September 5, 2026 into three tiers: a slow deliberative layer (a configurable LLM backend, cloud acceptable, event-driven or roughly 0.2 to 1 Hz), a local execution layer (a small state machine that owns the robot's time, validates requests against the catalogue, plays a default routine when nothing is queued or the agent misses its deadline, and handles the stop interrupt), and the robot's existing 50 Hz controller. Decisions are asynchronous: the execution layer asks for the *next* routine while the current one plays, with a deadline. Build order for the first prototype: catalogue and contract, then the execution state machine with a fake executor, then the LLM decision function last.
+
+The personal project root is the directory containing this file. The owner explicitly wants additional components and an agent layer, not a fork or copied history of the public projects already downloaded beneath that folder. The existing `microduck-lab/` tree remains external material and is ignored by this repository.
 
 The authenticated GitHub account is `ybotaiy`. The owner authorized creating and pushing an independent personal repository, provided it is private. [ybotaiy/microduck](https://github.com/ybotaiy/microduck) was created and verified private, with independent history rather than a GitHub fork.
 
@@ -20,7 +22,7 @@ Current scope includes inspection, project documentation, and establishing the p
 
 This is an exploratory learning project, not a committed product specification. The owner wants to learn how robot behavior is built and see whether a small repertoire, broad pet-like goal, and memory of interactions can produce an interesting apparent character. That character would be an effect of behavior selection and presentation; it does not imply an internal emotional life.
 
-The central question is whether actual interactions are enjoyable. Looking at the robot, barking, approaching, or interacting for longer cannot automatically be treated as enjoyment. The dog and child are different participants with different responses. Initially, use the owner's ratings, observations, and preferences to assess routines. A simulated child or dog cannot establish enjoyment for a real child or dog.
+The central question is whether actual interactions are enjoyable. Looking at the robot, barking, approaching, or interacting for longer cannot automatically be treated as enjoyment. Different participants, human or animal, respond differently. Initially, use the owner's ratings, observations, and preferences to assess routines. A simulated participant cannot establish enjoyment for a real one.
 
 Before hardware arrives, success means an understandable decision loop that selects plausible routines from a bounded catalogue, records what happened, and can later connect to a simulator. It does not require training a new locomotion policy or solving visual perception immediately.
 
@@ -35,6 +37,9 @@ Before hardware arrives, success means an understandable decision loop that sele
 | Use an explicit action catalogue and simulator/robot adapter. | Decisions can be evaluated without hardware and connected to different execution environments later. |
 | Begin with synthetic events, then add camera/perception. | A scenario such as “someone appeared” or “ball on the left” can exercise the decision loop before a video pipeline exists. |
 | Treat engagement judgments as hypotheses. | Owner feedback and interaction history provide a starting point; attention is not a reliable automatic reward for enjoyment. |
+| Use three tiers: slow agent, local execution state machine, fast controller. | Matches how comparable systems are built (see the comparison below). The middle tier owns timing, validation, defaults, and interrupts so the agent never has to be fast. Reactive tracking and sensor reflexes are later inputs to this tier, not a redesign. |
+| Make agent decisions asynchronous with a deadline and a default. | Routines last one to five seconds, so a decision for the next slot can hide a cloud round trip. A synchronous loop would bake a pause between every routine. Decision latency is logged from the first run as a first-class metric. |
+| Accept a cloud LLM backend for the slow layer. | Local models on the owner's machine would land in a similar latency range with weaker reasoning. The lever for responsiveness is asynchrony and local reflexes, not model location. Google's Gemini Robotics-ER orchestrator is served through a cloud API and drives real robots the same way. |
 | Defer operator imitation and new physical-skill training. | The owner explicitly chose the simpler activity-selection approach first. Imitation remains a possible later direction. |
 
 The agent may suggest missing routines or capabilities, but suggestions are proposals for development. A routine composed from already supported movements and pauses is different from a new physical skill that needs an animation, controller, reward design, or training. Neither a natural-language request nor a high-level plan guarantees that a robot can physically execute a new maneuver.
@@ -44,6 +49,23 @@ The agent may suggest missing routines or capabilities, but suggestions are prop
 The external computer receives observations, maintains a short interaction history and preferences, and asks the high-level agent what to do next. The agent chooses a routine and its supported parameters. An execution layer checks the request against the catalogue and passes it to an adapter. The simulator or robot executes it and reports progress, completion, or failure.
 
 The robot's movement/balance controller remains local. High-level reasoning need not run at the motor-control frequency, and the agent is not intended to generate each motor command directly.
+
+The execution layer sits between them and is built first. In the synthetic-event stage it is a single state machine holding the current routine and its remaining duration, validating requests, playing a default routine on idle or missed deadline, and accepting a stop interrupt. Later additions to the same component, in order: reactive tracking driven by perception at 5 to 10 Hz (head follows a ball or person), sensor reflexes (fall detection, depth-sensor halt), and behavior blending. Disney's animation engine for the BDX droids is the reference shape: background loops, triggered clips, and joystick-modulated poses above one RL policy. The agent in this project only triggers clips.
+
+### Comparable systems (checked September 5, 2026)
+
+Every advanced system checked is layered by rate. They differ in what passes between layers. Language and explicit commands are as common at the frontier as learned latents, and the explicit-command shape is the one a solo developer without robot training data can build.
+
+| System | Slow layer | Fast layer | Message between layers | Source |
+| --- | --- | --- | --- | --- |
+| Figure Helix | 7B VLM, 7 to 9 Hz | 80M policy, 200 Hz | Continuous latent vector, trained end to end | [Figure](https://www.figure.ai/news/helix) |
+| NVIDIA GR00T N1 | VLM, 10 Hz | Diffusion transformer, 120 Hz | Token embeddings via cross-attention, jointly trained | [arXiv](https://arxiv.org/html/2503.14734) |
+| Physical Intelligence π0.5 | Same backbone predicts a subtask in language | 300M action expert, one-second chunks | Language | [π0.5](https://www.pi.website/blog/pi05) |
+| Gemini Robotics 1.5 | ER 1.5 orchestrator via cloud API | VLA 1.5 on the robot | Natural-language instruction per step | [DeepMind](https://deepmind.google/blog/gemini-robotics-15-brings-ai-agents-into-the-physical-world/) |
+| Boston Dynamics Atlas with TRI | 450M diffusion policy, 30 Hz | Existing MPC controller | Position targets over the teleoperation interface | [Boston Dynamics](https://bostondynamics.com/blog/large-behavior-models-atlas-find-new-footing/) |
+| Disney BDX droid | Animation engine fed by remote control and clips | RL policies at 50 Hz, actuators at 600 Hz | Explicit commands: head pose, 2D velocity, turn rate | [arXiv](https://arxiv.org/html/2501.05204v1) |
+
+This project's design is closest to Disney's. The Disney command signals (velocity, turn rate, head pose) are the same kind of command vector the Microduck walking policy consumes. Choosing routines with an LLM is the language-interface pattern used by π0.5 and Gemini Robotics.
 
 The following contract is a design proposal, not an existing interface:
 
@@ -66,7 +88,7 @@ These facts were checked against official documentation on September 5, 2026. Th
 
 ### Hardware and onboard software
 
-The manufacturer targets first deliveries before Christmas 2026; this is not a guarantee for the owner's particular order. The press kit describes a roughly 25 cm, under-800 g robot with RK3566 compute plus an AI accelerator, 1 GB RAM, 32 GB storage, Wi-Fi/Bluetooth, a front camera, two IMUs, and an 8×8 time-of-flight depth sensor. Camera resolution/FOV, some other specifications, and the age recommendation remain provisional. No suitability for a one-year-old has been established. [Official press kit](https://pollen-robotics.com/microduck/press-kit/)
+The manufacturer targets first deliveries before Christmas 2026; this is not a guarantee for the owner's particular order. The press kit describes a roughly 25 cm, under-800 g robot with RK3566 compute plus an AI accelerator, 1 GB RAM, 32 GB storage, Wi-Fi/Bluetooth, a front camera, two IMUs, and an 8×8 time-of-flight depth sensor. Camera resolution/FOV, some other specifications, and the age recommendation remain provisional. No suitability for very young children has been established. [Official press kit](https://pollen-robotics.com/microduck/press-kit/)
 
 The onboard repository documents a 50 Hz controller and camera streaming over WebRTC. The developer cheat sheet describes controlling the robot from a laptop through a Unix socket forwarded over SSH. These documents support exploring an external high-level agent, but they do not demonstrate this project's complete perception-to-action loop. [Onboard software](https://github.com/pollen-robotics/microduck), [developer cheat sheet](https://github.com/pollen-robotics/microduck/blob/main/docs/robot/cheatsheet-dev.md)
 
@@ -80,7 +102,7 @@ The official `microduck_rl` repository documents CPU MuJoCo execution of exporte
 
 MuJoCo supports model cameras attached to moving bodies, which could supply a robot-view render. This establishes a rendering capability, not a ready-made external-agent integration. [MuJoCo visualization documentation](https://mujoco.readthedocs.io/en/latest/programming/visualization.html)
 
-We have not verified a ready-made simulator camera stream and command API matching the hardware. A virtual-camera-to-external-agent bridge is proposed custom integration. Third-person viewer captures, multiplayer pose messages, and hardware WebRTC streaming should not be mistaken for that bridge. Simulation can test movement, controller behavior, and software integration; it cannot validate genuine dog/child enjoyment.
+We have not verified a ready-made simulator camera stream and command API matching the hardware. A virtual-camera-to-external-agent bridge is proposed custom integration. Third-person viewer captures, multiplayer pose messages, and hardware WebRTC streaming should not be mistaken for that bridge. Simulation can test movement, controller behavior, and software integration; it cannot validate genuine enjoyment by real participants.
 
 ## Current project and external checkouts
 
@@ -88,12 +110,11 @@ Inspection date: September 5, 2026. All three downloaded repositories were alrea
 
 | Item | Observed state |
 | --- | --- |
-| Personal project root | `/Users/yuanjia/projects/microduck` |
+| Personal project root | The directory containing this file (the `microduck` checkout). |
 | Personal GitHub repository | [ybotaiy/microduck](https://github.com/ybotaiy/microduck), verified `PRIVATE` and not a fork on September 5, 2026. Local `origin` points only to this personal repository. |
 | Personal tracked contents | This `PROJECT.md`, a short `README.md`, root `AGENTS.md` for future context maintenance, and `.gitignore`. No application code has been added. |
 | External project handling | `microduck-lab/` is ignored by the personal repository. It retains its own Git history and contains the two nested Pollen checkouts. It is not vendored or added as a submodule. |
 | Account verification | GitHub CLI authenticated as `ybotaiy`. No owned MicroDuck repository resolved before setup. |
-| Ruled-out project | The owner confirmed that `ybotaiy/mochi` is a completely separate project. It is excluded. Nothing was deleted from that repository. |
 
 The downloaded codebases have different roles:
 
@@ -130,8 +151,8 @@ These are ideas and evidence to revisit, not a ready-made recipe or proof that t
 | Reference | Relevant idea and limit |
 | --- | --- |
 | [Disney, Autonomous Human-Robot Interaction via Operator Imitation (2025)](https://la.disneyresearch.com/publication/autonomous-human-robot-interaction-via-operator-imitation/) | Learns social interactions from expert operator recordings, including commands and human/robot pose. A possible later direction if demonstrations become valuable; it is not the selected first approach. |
-| [Mini activity selection with explicit and implicit feedback (2024)](https://link.springer.com/article/10.1007/s12369-024-01124-2) | Studies adapting activity choices using ratings and interaction feedback with 24 adult participants. Useful for thinking about preferences, not evidence for infant or dog enjoyment; its abstract does not report engagement improving simply because feedback sources were combined. |
-| [MIT Tega adaptive storytelling (2019)](https://www-prod.media.mit.edu/publications/a-model-free-affective-reinforcement-learning-approach-to-personalization-of-an-autonomous-social-robot-companion-for-early-literacy-educa/) | Personalized storytelling over three months with 67 children aged 4–6. This is evidence in an older-child educational setting, not evidence for a one-year-old. |
+| [Mini activity selection with explicit and implicit feedback (2024)](https://link.springer.com/article/10.1007/s12369-024-01124-2) | Studies adapting activity choices using ratings and interaction feedback with 24 adult participants. Useful for thinking about preferences, not evidence for very young children or animals; its abstract does not report engagement improving simply because feedback sources were combined. |
+| [MIT Tega adaptive storytelling (2019)](https://www-prod.media.mit.edu/publications/a-model-free-affective-reinforcement-learning-approach-to-personalization-of-an-autonomous-social-robot-companion-for-early-literacy-educa/) | Personalized storytelling over three months with 67 children aged 4–6. This is evidence in an older-child educational setting, not evidence for very young children. |
 | [LOVOT technology](https://lovot.life/en/technology/) | Combines expressive design, sensors, and machine learning. The public technology page does not expose a reproducible “fun” reward or full implementation to copy. |
 | [Of Dogs and Robots: More Than Human Interactions at Play? (2026)](https://iris.unito.it/handle/2318/2140392) | A small study with six dogs and their owners reports curiosity/engagement as well as avoidance/fear. It motivates evaluating each dog's actual response, not assuming robot acceptance. |
 
@@ -139,9 +160,11 @@ These are ideas and evidence to revisit, not a ready-made recipe or proof that t
 
 The personal project location and separation from external checkouts are decided, and this context document is in place. None of the application implementation milestones is complete. Discuss and authorize the smallest useful prototype before implementing it.
 
-1. **Finish the interface inventory and choose a minimal prototype layout.** The independent private personal repository is established. Inspect applicable instructions and actual backend/viewer interfaces before choosing an integration point. Keep personal components separate from the downloaded checkouts and decide the smallest necessary layout here.
-2. **Define the routine catalogue and observation/action contract.** Choose a few supported routines, inputs, parameters, transition rules, stop/cancel semantics, and result events. Separate composable existing movements from skills requiring development. Deliverable: a readable catalogue with concrete synthetic scenarios.
-3. **Implement a small decision-loop prototype with synthetic events and logs.** Use a configurable agent backend and a fake executor. Exercise events such as someone appearing or a ball being on the left. Inspect choices, reasons, timing, repeated-action behavior, outcomes, and owner feedback. Deliverable: replayable scenarios without depending on a camera or robot.
+1. **Define the routine catalogue and observation/action contract.** Four or five routines (look in a direction, short walk or turn, sit or stand, a greeting composed from supported movements, wait) with parameter bounds, expected duration, interruptibility, stop semantics, and result events. Three or four synthetic scenarios. Deliverable: a readable document, about one session. The owner chooses the routines.
+2. **Implement the execution layer with a fake executor.** The state machine described above, no sensors, no dependency on the external checkouts. Deliverable: routines play, queue, time out to a default, and stop, with a JSONL log. Roughly 100 lines.
+3. **Plug in the decision function last.** A configurable agent backend with a deterministic rules fallback for replay, called asynchronously with a deadline. Exercise events such as someone appearing or a ball on the left. Inspect choices, reasons, decision latency, repeated-action behavior, and owner feedback. Deliverable: replayable scenarios without a camera or robot.
+
+A short read-only inventory of the adapter targets can happen in parallel: the community lab's streaming backend (`viz_server.py`) and its ONNX evaluation and rollout-rendering entry points, which take a policy plus a command vector. Reading only, to inform step 4.
 4. **Connect existing simulator policies through an adapter.** Compare the official CPU runner/browser simulator and the discovered community lab as integration options. Inspect available programmatic interfaces before choosing. Deliverable: a selected catalogue action executes and returns an observable result without altering low-level policy contracts.
 5. **Add a virtual camera, scene, and perception bridge.** Determine where frames come from, camera pose/settings, transport, timestamps, latency, and how detections become the same observation events. Treat hardware camera properties as provisional. Deliverable: an end-to-end simulated observation-to-action experiment, clearly distinguished from real-world validation.
 6. **Collect preferences and evaluate routine selection.** Start with owner ratings and annotated interaction history. Compare choices across scenarios and repetitions. Keep observed behavior separate from inferred enjoyment; simulation evaluates decision logic only. Decide later whether simple preference rules, prompt context, or a trained selector is justified.
@@ -151,10 +174,11 @@ The personal project location and separation from external checkouts are decided
 ## Open questions
 
 - Which adapter boundary and dependency/version strategy will let the personal project use the external simulation tools without forking them?
-- Which agent product was meant by “AstroBot/Astro,” and what configurable interface should the prototype use?
+- Which agent product was meant by “AstroBot/Astro”? The prototype takes a configurable backend with a rules fallback, so this can stay open; a cloud LLM API is the default.
 - Which few routines should define the first experiment, and which are executable in the chosen simulator version?
 - Which simulator offers the simplest programmatic integration, and what camera/command bridge must be built?
 - What owner feedback and observations will count as evidence of an enjoyable interaction for each participant?
+- Whether to add a license before making the repository public, and which one.
 - Which final hardware specifications and APIs will ship, and what model/version mismatches exist between the current local checkouts and upstream?
 
 ## Maintenance
@@ -165,4 +189,5 @@ Record the personal repository's verified URL and visibility as setup progresses
 
 ### Progress record
 
-- **September 5, 2026:** Captured initial goals, architecture decisions, research, conceptual background, known uncertainties, and proposed milestones. Verified the account and the three existing external checkouts. The owner ruled out Mochi, clarified that the public projects are dependencies/reference material, and requested an independent private personal GitHub repository for the additional agent layer. Project documentation was moved to the personal project root and the temporary documentation edits in the community lab were removed. Created `ybotaiy/microduck`, verified it private and not a fork, and configured the personal origin. No application implementation, dependency installation, build, test run, or training occurred.
+- **September 5, 2026:** Captured initial goals, architecture decisions, research, conceptual background, known uncertainties, and proposed milestones. Verified the account and the three existing external checkouts. The owner clarified that the public projects are dependencies/reference material, and requested an independent private personal GitHub repository for the additional agent layer. Project documentation was moved to the personal project root and the temporary documentation edits in the community lab were removed. Created `ybotaiy/microduck`, verified it private and not a fork, and configured the personal origin. No application implementation, dependency installation, build, test run, or training occurred.
+- **September 5, 2026 (later):** Refined the architecture to three tiers with an execution state machine built before the agent, asynchronous decisions with a deadline and default, and a cloud LLM backend accepted. Checked six comparable systems against primary sources and recorded the comparison. Rewrote next steps 1 to 3 as the build order. Audited the repository for public release: no secrets, one commit, no external source; replaced absolute local paths, removed personal household details and an unrelated-repository note; reworded the private-only mandate. Owner decided: no license, make public. Still no code.
