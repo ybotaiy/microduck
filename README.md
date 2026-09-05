@@ -8,7 +8,7 @@ The first approach is an agent on a computer that chooses and times a small cata
 
 ## Repository scope
 
-This repository contains the personal agent layer and project notes. It is private as of September 5, 2026 and was audited for public release that day; see the status line in `PROJECT.md`. No application implementation has been added yet.
+This repository contains the personal agent layer and project notes. It is private as of September 5, 2026 and was audited for public release that day; see the status line in `PROJECT.md`. No application implementation has been added yet. Licensed under Apache-2.0 (see `LICENSE`).
 
 Public codebases already downloaded locally remain separate and are excluded from this repository:
 
