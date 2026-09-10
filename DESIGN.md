@@ -1,6 +1,6 @@
 # MicroDuck Character Bench: design v0.2 (draft for review)
 
-Status: **draft, not approved, no code exists.** v0.2 written September 5, 2026 after the owner's review of v0.1 and a research pass over the neighboring projects. Companion to `PROJECT.md`, which holds context, decision history, and verified platform facts; this document holds the build design.
+Status: **historical design; immediate build order superseded September 9, 2026 by the simulation-first scope in PROJECT.md.** Selected decisions were approved September 5 (see section 11); no implementation was verified during the September 9 bootstrap. v0.2 written September 5, 2026 after the owner's review of v0.1 and a research pass over the neighboring projects. Companion to `PROJECT.md`, which holds context, decision history, and verified platform facts; this document holds the build design.
 
 Reading guide. Sections 1 to 4 are the high-level design to approve or reject. Sections 5 to 9 are the details, section 10 maps every detail back to a high-level decision, section 11 lists the decisions only the owner can make, and the appendices hold the verified landscape and borrowed-code tables.
 

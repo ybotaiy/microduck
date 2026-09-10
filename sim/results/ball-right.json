@@ -1,0 +1,33 @@
+{
+  "mode": "ball",
+  "actuator_model": "XML position (no BAM)",
+  "seconds": 24.0,
+  "ball": [
+    0.65,
+    -0.5
+  ],
+  "push_velocity": null,
+  "fell": false,
+  "stopped": true,
+  "final_distance": 0.24477941741579265,
+  "mean_final_speed": 0.0003624843972406646,
+  "max_tilt_deg": 5.304856204823446,
+  "final_position": [
+    0.4546627442833601,
+    -0.35248620498574756
+  ],
+  "touched_ball": false,
+  "final_heading_error": -0.15734288424812493,
+  "script_sha256": "06f831974f85506593273bdcc5507374aba54dab9a4b287ef4a5f232e024ac09",
+  "runner_commit": "53b8971b61baf5b7f3c16d135dd7cac37623de4b",
+  "versions": {
+    "mujoco": "3.13.0",
+    "numpy": "2.2.6",
+    "onnxruntime": "1.23.2"
+  },
+  "policy_sha256": {
+    "alpha_walking.onnx": "e36332d383997d51401897734cd3e79cf5038406feddb18b4d57ecfb141daa6c",
+    "alpha_stand.onnx": "1569268713e40deea795dd2922dba50d3621e15a872855408b6b1b125b1c094b"
+  },
+  "success": true
+}
