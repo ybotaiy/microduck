@@ -1,0 +1,218 @@
+{
+  "date": "2026-09-12",
+  "checks": {
+    "camera": "robot_view",
+    "mount": "same position and parent as upstream head_camera",
+    "fovy_degrees": 70,
+    "neutral_downward_degrees": 25,
+    "local_quaternion": [
+      0.6903455270798547,
+      -0.1530459187330309,
+      0.1530459187330309,
+      -0.6903455270798546
+    ],
+    "note": "Idealized virtual optics; pose tests are not physical turns or image-only control.",
+    "passed": true,
+    "checks": [
+      {
+        "case": "front-yaw-0",
+        "expected": "center",
+        "visible_pixels": 282,
+        "centroid": [
+          239.45035460992906,
+          112.73758865248227
+        ],
+        "projected_center": [
+          239.97523913393331,
+          113.31051244467298
+        ],
+        "projection_error_px": 0.7770105759880933,
+        "camera_heading_error_rad": -1.8374933557427235e-16,
+        "passed": true
+      },
+      {
+        "case": "left-yaw-0",
+        "expected": "left",
+        "visible_pixels": 313,
+        "centroid": [
+          144.45367412140575,
+          112.75079872204473
+        ],
+        "projected_center": [
+          145.13488268711066,
+          113.31051244467295
+        ],
+        "projection_error_px": 0.8816601166481747,
+        "camera_heading_error_rad": -1.8374933557427235e-16,
+        "passed": true
+      },
+      {
+        "case": "right-yaw-0",
+        "expected": "right",
+        "visible_pixels": 311,
+        "centroid": [
+          334.4887459807074,
+          112.73311897106109
+        ],
+        "projected_center": [
+          334.81559558075594,
+          113.310512444673
+        ],
+        "projection_error_px": 0.6634861599321555,
+        "camera_heading_error_rad": -1.8374933557427235e-16,
+        "passed": true
+      },
+      {
+        "case": "outside-left-yaw-0",
+        "expected": "hidden",
+        "visible_pixels": 0,
+        "centroid": null,
+        "projected_center": [
+          -4613.837664313337,
+          1508.001642103486
+        ],
+        "projection_error_px": null,
+        "camera_heading_error_rad": -1.8374933557427235e-16,
+        "passed": true
+      },
+      {
+        "case": "behind-yaw-0",
+        "expected": "hidden",
+        "visible_pixels": 0,
+        "centroid": null,
+        "projected_center": null,
+        "projection_error_px": null,
+        "camera_heading_error_rad": -1.8374933557427235e-16,
+        "passed": true
+      },
+      {
+        "case": "front-yaw-90",
+        "expected": "center",
+        "visible_pixels": 282,
+        "centroid": [
+          239.45035460992906,
+          112.73758865248227
+        ],
+        "projected_center": [
+          239.97523913393331,
+          113.31051244467295
+        ],
+        "projection_error_px": 0.7770105759880723,
+        "camera_heading_error_rad": -2.220446049250313e-16,
+        "passed": true
+      },
+      {
+        "case": "left-yaw-90",
+        "expected": "left",
+        "visible_pixels": 313,
+        "centroid": [
+          144.45367412140575,
+          112.75079872204473
+        ],
+        "projected_center": [
+          145.1348826871107,
+          113.31051244467295
+        ],
+        "projection_error_px": 0.8816601166481967,
+        "camera_heading_error_rad": -2.220446049250313e-16,
+        "passed": true
+      },
+      {
+        "case": "right-yaw-90",
+        "expected": "right",
+        "visible_pixels": 311,
+        "centroid": [
+          334.4887459807074,
+          112.73311897106109
+        ],
+        "projected_center": [
+          334.81559558075594,
+          113.31051244467298
+        ],
+        "projection_error_px": 0.6634861599321432,
+        "camera_heading_error_rad": -2.220446049250313e-16,
+        "passed": true
+      },
+      {
+        "case": "outside-left-yaw-90",
+        "expected": "hidden",
+        "visible_pixels": 0,
+        "centroid": null,
+        "projected_center": [
+          -4613.837664313333,
+          1508.0016421034848
+        ],
+        "projection_error_px": null,
+        "camera_heading_error_rad": -2.220446049250313e-16,
+        "passed": true
+      },
+      {
+        "case": "behind-yaw-90",
+        "expected": "hidden",
+        "visible_pixels": 0,
+        "centroid": null,
+        "projected_center": null,
+        "projection_error_px": null,
+        "camera_heading_error_rad": -2.220446049250313e-16,
+        "passed": true
+      }
+    ]
+  },
+  "verification": {
+    "gif_bytes": 2855904,
+    "gif_frames": 75,
+    "gif_size": [
+      720,
+      288
+    ],
+    "gif_duration_ms": 12000,
+    "synchronized_frame_count": 450,
+    "camera_yaw_range_rad": [
+      -0.07307528438701726,
+      0.6601950534975135
+    ],
+    "static_regression": {
+      "samples": 900,
+      "all_original_fields_exact_match": true
+    },
+    "dynamic_regression": {
+      "samples": 2100,
+      "all_original_fields_exact_match": true
+    }
+  },
+  "rollout": {
+    "mode": "ball",
+    "actuator_model": "XML position (no BAM)",
+    "seconds": 18.0,
+    "ball": [
+      0.8,
+      0.35
+    ],
+    "push_velocity": null,
+    "fell": false,
+    "stopped": true,
+    "final_distance": 0.206335857802429,
+    "mean_final_speed": 0.00037075160659889243,
+    "max_tilt_deg": 5.264987128336504,
+    "final_position": [
+      0.6108960439168274,
+      0.2674519533316644
+    ],
+    "touched_ball": false,
+    "final_heading_error": -0.24813253806966665,
+    "script_sha256": "3a4ff46575ab9cdc77f4704993219daa5e927b3a376014c30c2d170d21ede969",
+    "runner_commit": "53b8971b61baf5b7f3c16d135dd7cac37623de4b",
+    "versions": {
+      "mujoco": "3.13.0",
+      "numpy": "2.2.6",
+      "onnxruntime": "1.23.2"
+    },
+    "policy_sha256": {
+      "alpha_walking.onnx": "e36332d383997d51401897734cd3e79cf5038406feddb18b4d57ecfb141daa6c",
+      "alpha_stand.onnx": "1569268713e40deea795dd2922dba50d3621e15a872855408b6b1b125b1c094b"
+    },
+    "success": true
+  },
+  "existing_controller_tests_passed": 4,
+  "camera_source_sha256": "719a7707b613c42d2ab1a943a749361a494d0e86c89ea6fe442c5233896cf07a"
+}

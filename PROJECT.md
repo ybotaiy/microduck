@@ -1,14 +1,18 @@
 # MicroDuck pet project: context, decisions, and next steps
 
-Last updated: September 9, 2026.
+Last updated: September 12, 2026.
 
 Status: public repository, Apache-2.0. CPU simulation includes baseline standing, a controlled push, three stationary-ball targets, and a 42-second scripted moving-ball follow/stop/resume experiment with XML position actuators. BAM dynamics and hardware remain untested. Keep private context outside this repository.
 
 Visual progress report: [First simulation experiments](docs/2026-09-09-simulation.md).
 
-## Resume here — current scope (September 9, 2026)
+## Resume here — current scope (September 12, 2026)
 
-The authorized dynamic-follow experiment is complete; inspect its looped recording and transition logs. `DYNAMIC_FOLLOW.md` records the repeatable path, hysteresis controller, results, and limits. Camera perception is a separate future stage, with this ground-truth run as the control baseline. No camera, policy training, BAM comparison, or hardware deployment is part of this completed scope. Static setup and runs remain in `SIMULATION.md`.
+Hardware signal research completed locally on September 12: see [HARDWARE_SIGNALS.md](HARDWARE_SIGNALS.md). Advertised camera + 8×8 ToF + body/head IMUs are supported by alpha runtime interfaces, but final optics/range and delivered components remain provisional. Contact odometry is a flat-ground estimate, not measured foot contact; existing virtual optics and simulator pose are not hardware calibration. Obstacle warning is investigable; drop-off warning requires ground coverage, validity and stopping-margin measurements. The document proposes a minimal sensing validation only; no new implementation or hardware work is authorized.
+
+The bounded-turn/rear-search iteration is complete locally. Zero-forward yaw=1.2 succeeded where the earlier yaw=0.8 scan stalled; rear visual reacquisition/approach/stop, four repeated side reacquisitions, timeout stopping, all original coordinate baselines and static/moving/blackout/occlusion visual regressions pass. Seventeen tests pass. See `BOUNDED_SEARCH.md` for measured limits and representative media. This is not obstacle/drop-off safety or hardware validation. Future sensing, motion veto, terrain planning and pet-like interaction steps are proposed only in `ROADMAP.md`.
+
+Iteration workflow now supports camera RGB sensing without video encoding: `--vision` runs perception; add `--video --dual-view` only for a recording. Targeted snapshots remain available for diagnosis. Keep dependencies, acceptance criteria and failure branches in a compact upfront plan; record phase timings without calling unattributed wall time model reasoning. No publishing, training or hardware work is included.
 
 The current implementation direction is a small, visible simulation project:
 
@@ -240,3 +244,7 @@ Record the personal repository's verified URL and visibility as setup progresses
 - **September 9, 2026 (execution):** Added `sim/experiment.py` and `SIMULATION.md`. Verified an 8-second standing baseline and an 8-second push run (trunk planar velocity set to 0.4 m/s at t=3 s, recovered, max tilt 4.16 degrees). Pure in-place yaw commands stalled on right/behind targets; walking turns completed left-front, right-front, and behind targets with final trunk-to-ball-center distances 0.2063, 0.2448, and 0.2385 m. All three ended below 0.01 m/s final-second mean speed with no detected fall or robot-ball contact. Numerical summaries are in `sim/results/`; rendered clips and sampled frames were checked. Heading wraparound and stop-latch checks passed. Results are deterministic single runs with XML position actuators, not BAM or hardware validation. No training, camera perception, or kicking.
 
 - **September 9, 2026 (dynamic follow):** Added `follow` mode with a scripted mocap ball, stop at 0.26 m and resume at 0.38 m with a 0.8-second restart dwell. A 42-second move/hold/move/hold trajectory produced five stops and four resumes, reacted to both departures, and settled during each hold; no detected fall/contact. After the first stop, maximum distance was 0.3864 m; final distance 0.2547 m. Minimum transition interval 1.60 s. Static left-front metrics remain identical and four controller/trajectory tests pass. Robot motion is simulated; target motion is imposed and not a free-ball contact-dynamics or vision result. See `DYNAMIC_FOLLOW.md` and `sim/results/dynamic-follow.json`. No model training, BAM comparison, camera, or hardware deployment.
+
+- **September 12, 2026 (camera validation):** Added opt-in `--dual-view` and `--camera-check`; preserved upstream source and original camera. Ten posed front/side/out-of-view checks at yaw 0/90 degrees pass. Recorded an 18-second physical approach in synchronized views, with uniform headers/footer and real-time playback. Static 900 samples and dynamic 2,100 samples match prior original trajectory fields exactly; four existing tests pass. Image-based control remains pending. Local changes only; see `CAMERA_VALIDATION.md`.
+
+- **September 12, 2026 (image control and search):** Image-only stationary and scripted moving-ball following pass, with retained initial late-stop failure and a brief residual dynamic detection loss. Missing/stale pixels stop commands. Active left/right head search and reacquisition after removal of a physical occluder pass. Behind-target head/body scan fails and gives up on schedule; no blind forward scan. Thirteen tests pass, command replays use only image observations/timing (plus head encoder for search), and both coordinate baselines remain exact. See `VISION_FOLLOW.md` and `VISUAL_SEARCH.md`. Local/unpublished; no training or hardware.

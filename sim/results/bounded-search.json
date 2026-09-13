@@ -1,0 +1,1959 @@
+{
+  "unit_tests_passed": 17,
+  "verification": {
+    "coordinate": {
+      "baseline": {
+        "samples": 400,
+        "all_original_fields_equal": true
+      },
+      "push": {
+        "samples": 400,
+        "all_original_fields_equal": true
+      },
+      "left": {
+        "samples": 900,
+        "all_original_fields_equal": true
+      },
+      "right": {
+        "samples": 1200,
+        "all_original_fields_equal": true
+      },
+      "behind": {
+        "samples": 1500,
+        "all_original_fields_equal": true
+      },
+      "follow": {
+        "samples": 2100,
+        "all_original_fields_equal": true
+      }
+    },
+    "vision": {
+      "rear": {
+        "success": true,
+        "replay": {
+          "command_replay_mismatches": [],
+          "lost_command_stop_pass": true,
+          "approach_success": true,
+          "fell": false,
+          "touched_ball": false
+        },
+        "body_scan_peak_displacement_m": 0.02143053403570811
+      },
+      "repeat": {
+        "success": true,
+        "replay": {
+          "command_replay_mismatches": [],
+          "lost_command_stop_pass": true,
+          "approach_success": true,
+          "fell": false,
+          "touched_ball": false
+        }
+      },
+      "timeout": {
+        "success": false,
+        "replay": {
+          "command_replay_mismatches": [],
+          "lost_command_stop_pass": true,
+          "approach_success": false,
+          "fell": false,
+          "touched_ball": false
+        },
+        "body_scan_peak_displacement_m": 0.019444836332588866
+      },
+      "regression-vision-static": {
+        "success": true,
+        "replay": {
+          "command_replay_mismatches": [],
+          "lost_command_stop_pass": true,
+          "approach_success": true,
+          "fell": false,
+          "touched_ball": false
+        }
+      },
+      "regression-vision-moving": {
+        "success": true,
+        "replay": {
+          "command_replay_mismatches": [],
+          "lost_command_stop_pass": true,
+          "approach_success": true,
+          "fell": false,
+          "touched_ball": false
+        }
+      },
+      "regression-vision-blackout": {
+        "success": true,
+        "replay": {
+          "command_replay_mismatches": [],
+          "lost_command_stop_pass": true,
+          "approach_success": true,
+          "fell": false,
+          "touched_ball": false
+        }
+      },
+      "regression-vision-occluder": {
+        "success": true,
+        "replay": {
+          "command_replay_mismatches": [],
+          "lost_command_stop_pass": true,
+          "approach_success": true,
+          "fell": false,
+          "touched_ball": false
+        }
+      }
+    },
+    "repeat_pause_checks": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "repeat_min_state_interval": 1.2999999999999998,
+    "media": {
+      "media-rear": {
+        "trajectory_prefix_bit_exact": false,
+        "max_planar_difference_m": 0.011420160494551572,
+        "independent_success": true,
+        "replay": {
+          "command_replay_mismatches": [],
+          "lost_command_stop_pass": true,
+          "approach_success": true,
+          "fell": false,
+          "touched_ball": false
+        }
+      },
+      "media-repeat": {
+        "trajectory_prefix_bit_exact": false,
+        "max_planar_difference_m": 0.036433489438651344,
+        "independent_success": true,
+        "replay": {
+          "command_replay_mismatches": [],
+          "lost_command_stop_pass": true,
+          "approach_success": true,
+          "fell": false,
+          "touched_ball": false
+        }
+      }
+    }
+  },
+  "runs": {
+    "repeat": {
+      "mode": "ball",
+      "actuator_model": "XML position (no BAM)",
+      "seconds": 84.0,
+      "ball": [
+        0.8,
+        0.0
+      ],
+      "push_velocity": null,
+      "fell": false,
+      "stopped": true,
+      "final_distance": 0.3033079881315032,
+      "mean_final_speed": 0.000362179125043526,
+      "max_tilt_deg": 5.90725287118079,
+      "final_position": [
+        1.3941238603853796,
+        1.3208446277356074
+      ],
+      "touched_ball": false,
+      "final_heading_error": -0.14242061795475394,
+      "script_sha256": "adeb6098c6d6074a0059cee85e6ff868d6e09eeaf337d292293c22ceea2efb6f",
+      "runner_commit": "53b8971b61baf5b7f3c16d135dd7cac37623de4b",
+      "versions": {
+        "mujoco": "3.13.0",
+        "numpy": "2.2.6",
+        "onnxruntime": "1.23.2"
+      },
+      "policy_sha256": {
+        "alpha_walking.onnx": "e36332d383997d51401897734cd3e79cf5038406feddb18b4d57ecfb141daa6c",
+        "alpha_stand.onnx": "1569268713e40deea795dd2922dba50d3621e15a872855408b6b1b125b1c094b"
+      },
+      "success": true,
+      "control": "RGB magenta component horizontal offset and apparent diameter only",
+      "vision_source_sha256": "67eafb5bbfd8e077a35bf39ba9fe3eee5338626d6da08bb5a3d32464ba4cd61e",
+      "vision_events": [],
+      "image_thresholds": {
+        "stop_size": 0.17,
+        "resume_size": 0.14,
+        "dwell": 0.8
+      },
+      "lost_samples": 0,
+      "lost_commands_zero": true,
+      "blackout": null,
+      "perception_evaluation": {
+        "samples": 420,
+        "missed_visible_ball": 4,
+        "detection_without_visible_ball": 0,
+        "max_horizontal_error_px": 1.6634286412512438
+      },
+      "search": {
+        "scenario": "repeat",
+        "touched_occluder": false,
+        "move_seconds": 2.0,
+        "events": [
+          {
+            "t": 4.2,
+            "previous": "TRACK",
+            "state": "SETTLE_LOST"
+          },
+          {
+            "t": 5.7,
+            "previous": "SETTLE_LOST",
+            "state": "HEAD_SEARCH"
+          },
+          {
+            "t": 7.0,
+            "previous": "HEAD_SEARCH",
+            "state": "ALIGN"
+          },
+          {
+            "t": 9.98,
+            "previous": "ALIGN",
+            "state": "TRACK"
+          },
+          {
+            "t": 24.24,
+            "previous": "TRACK",
+            "state": "SETTLE_LOST"
+          },
+          {
+            "t": 25.74,
+            "previous": "SETTLE_LOST",
+            "state": "HEAD_SEARCH"
+          },
+          {
+            "t": 30.88,
+            "previous": "HEAD_SEARCH",
+            "state": "ALIGN"
+          },
+          {
+            "t": 33.22,
+            "previous": "ALIGN",
+            "state": "TRACK"
+          },
+          {
+            "t": 44.2,
+            "previous": "TRACK",
+            "state": "SETTLE_LOST"
+          },
+          {
+            "t": 45.7,
+            "previous": "SETTLE_LOST",
+            "state": "HEAD_SEARCH"
+          },
+          {
+            "t": 47.28,
+            "previous": "HEAD_SEARCH",
+            "state": "ALIGN"
+          },
+          {
+            "t": 50.36,
+            "previous": "ALIGN",
+            "state": "TRACK"
+          },
+          {
+            "t": 64.28,
+            "previous": "TRACK",
+            "state": "SETTLE_LOST"
+          },
+          {
+            "t": 65.78,
+            "previous": "SETTLE_LOST",
+            "state": "HEAD_SEARCH"
+          },
+          {
+            "t": 70.92,
+            "previous": "HEAD_SEARCH",
+            "state": "ALIGN"
+          },
+          {
+            "t": 73.26,
+            "previous": "ALIGN",
+            "state": "TRACK"
+          }
+        ],
+        "reacquisitions": 4,
+        "final_internal_state": "TRACK",
+        "head_command_limit": 1.1,
+        "body_scan_time_limit": 6.0,
+        "max_abs_head_encoder": 1.2888383088487794,
+        "max_abs_head_command": 1.100000023841858,
+        "head_search_body_commands_zero": true,
+        "body_turn_metrics": null,
+        "search_time_limit": 28.0,
+        "search_displacement_limit": 0.5,
+        "body_search_forward_commands_zero": true
+      },
+      "search_source_sha256": "79947b45ccf93534a2ac7726439b741f39f577cd25845b4afb15589d2a2cfd7d",
+      "timing": {
+        "wall_seconds": 61.865173124999274,
+        "seconds_by_stage": {
+          "robot_rgb_render": 51.140463268908206,
+          "detection": 5.081457585853059,
+          "segmentation_render": 2.794791549735237,
+          "onnx_inference": 0.6091089280089363,
+          "physics": 0.6201907389913686
+        },
+        "note": "Stage timers exclude uninstrumented setup, observation construction, policy command updates, contacts and Python overhead."
+      }
+    },
+    "regression-coordinate-push": {
+      "mode": "push",
+      "actuator_model": "XML position (no BAM)",
+      "seconds": 8.0,
+      "ball": [
+        0.8,
+        0.35
+      ],
+      "push_velocity": 0.4,
+      "fell": false,
+      "stopped": false,
+      "final_distance": 0.7587512722554672,
+      "mean_final_speed": 0.0003997816461517399,
+      "max_tilt_deg": 4.156065178722,
+      "final_position": [
+        0.11685614962059171,
+        0.019821301659106397
+      ],
+      "touched_ball": false,
+      "final_heading_error": 0.0,
+      "script_sha256": "78792046db46b5a0641c211ba813e0f50be3d7d2c888815a0f8f250a94975a49",
+      "runner_commit": "53b8971b61baf5b7f3c16d135dd7cac37623de4b",
+      "versions": {
+        "mujoco": "3.13.0",
+        "numpy": "2.2.6",
+        "onnxruntime": "1.23.2"
+      },
+      "policy_sha256": {
+        "alpha_walking.onnx": "e36332d383997d51401897734cd3e79cf5038406feddb18b4d57ecfb141daa6c",
+        "alpha_stand.onnx": "1569268713e40deea795dd2922dba50d3621e15a872855408b6b1b125b1c094b"
+      },
+      "success": true,
+      "timing": {
+        "wall_seconds": 0.30580333300167695,
+        "seconds_by_stage": {
+          "onnx_inference": 0.02435013186186552,
+          "physics": 0.043737383210100234
+        },
+        "note": "Stage timers exclude uninstrumented setup, observation construction, policy command updates, contacts and Python overhead."
+      }
+    },
+    "regression-vision-occluder": {
+      "mode": "ball",
+      "actuator_model": "XML position (no BAM)",
+      "seconds": 26.0,
+      "ball": [
+        0.8,
+        0.0
+      ],
+      "push_velocity": null,
+      "fell": false,
+      "stopped": true,
+      "final_distance": 0.30140640106516414,
+      "mean_final_speed": 0.0004820677964926491,
+      "max_tilt_deg": 4.361419032273547,
+      "final_position": [
+        0.49905317892679973,
+        -0.01663819368169934
+      ],
+      "touched_ball": false,
+      "final_heading_error": -0.04058787423831487,
+      "script_sha256": "8958afb6e5cbdf776db91e71144c812baba05e21cceeeb0f6a8e2e3e32e22a52",
+      "runner_commit": "53b8971b61baf5b7f3c16d135dd7cac37623de4b",
+      "versions": {
+        "mujoco": "3.13.0",
+        "numpy": "2.2.6",
+        "onnxruntime": "1.23.2"
+      },
+      "policy_sha256": {
+        "alpha_walking.onnx": "e36332d383997d51401897734cd3e79cf5038406feddb18b4d57ecfb141daa6c",
+        "alpha_stand.onnx": "1569268713e40deea795dd2922dba50d3621e15a872855408b6b1b125b1c094b"
+      },
+      "success": true,
+      "control": "RGB magenta component horizontal offset and apparent diameter only",
+      "vision_source_sha256": "67eafb5bbfd8e077a35bf39ba9fe3eee5338626d6da08bb5a3d32464ba4cd61e",
+      "vision_events": [
+        {
+          "t": 2.0,
+          "previous": "LOST",
+          "state": "APPROACH"
+        },
+        {
+          "t": 12.72,
+          "previous": "APPROACH",
+          "state": "STOP"
+        }
+      ],
+      "image_thresholds": {
+        "stop_size": 0.17,
+        "resume_size": 0.14,
+        "dwell": 0.8
+      },
+      "lost_samples": 0,
+      "lost_commands_zero": true,
+      "blackout": null,
+      "perception_evaluation": {
+        "samples": 130,
+        "missed_visible_ball": 0,
+        "detection_without_visible_ball": 0,
+        "max_horizontal_error_px": 1.3280465111275959
+      },
+      "search": {
+        "scenario": "occluder",
+        "touched_occluder": false,
+        "move_seconds": 2.0,
+        "events": [
+          {
+            "t": 4.0,
+            "previous": "TRACK",
+            "state": "SETTLE_LOST"
+          },
+          {
+            "t": 5.5,
+            "previous": "SETTLE_LOST",
+            "state": "HEAD_SEARCH"
+          },
+          {
+            "t": 10.2,
+            "previous": "HEAD_SEARCH",
+            "state": "ALIGN"
+          },
+          {
+            "t": 10.88,
+            "previous": "ALIGN",
+            "state": "TRACK"
+          }
+        ],
+        "reacquisitions": 1,
+        "final_internal_state": "TRACK",
+        "head_command_limit": 1.1,
+        "body_scan_time_limit": 6.0,
+        "max_abs_head_encoder": 1.06609948412871,
+        "max_abs_head_command": 1.100000023841858,
+        "head_search_body_commands_zero": true,
+        "body_turn_metrics": null,
+        "search_time_limit": 28.0,
+        "search_displacement_limit": 0.5,
+        "body_search_forward_commands_zero": true
+      },
+      "search_source_sha256": "79947b45ccf93534a2ac7726439b741f39f577cd25845b4afb15589d2a2cfd7d",
+      "timing": {
+        "wall_seconds": 20.270402624970302,
+        "seconds_by_stage": {
+          "robot_rgb_render": 16.694099751126487,
+          "detection": 1.4926315094926395,
+          "segmentation_render": 0.8920798372128047,
+          "onnx_inference": 0.19266239705029875,
+          "physics": 0.202808539790567
+        },
+        "note": "Stage timers exclude uninstrumented setup, observation construction, policy command updates, contacts and Python overhead."
+      }
+    },
+    "turn-yaw-right": {
+      "mode": "turn",
+      "actuator_model": "XML position (no BAM)",
+      "seconds": 16.0,
+      "ball": [
+        0.8,
+        0.35
+      ],
+      "push_velocity": null,
+      "fell": false,
+      "stopped": false,
+      "final_distance": 0.8556090991685864,
+      "mean_final_speed": 0.00035313305403601334,
+      "max_tilt_deg": 4.9224299679765275,
+      "final_position": [
+        0.010276370256649367,
+        0.020753102968202496
+      ],
+      "touched_ball": false,
+      "final_heading_error": 0.0,
+      "script_sha256": "dcd5a321e45a7f747c01878159d522a1e8d05d0dc23a20ee2f1a2032853a272b",
+      "runner_commit": "53b8971b61baf5b7f3c16d135dd7cac37623de4b",
+      "versions": {
+        "mujoco": "3.13.0",
+        "numpy": "2.2.6",
+        "onnxruntime": "1.23.2"
+      },
+      "policy_sha256": {
+        "alpha_walking.onnx": "e36332d383997d51401897734cd3e79cf5038406feddb18b4d57ecfb141daa6c",
+        "alpha_stand.onnx": "1569268713e40deea795dd2922dba50d3621e15a872855408b6b1b125b1c094b"
+      },
+      "success": true,
+      "timing": {
+        "wall_seconds": 0.41311070800293237,
+        "seconds_by_stage": {
+          "onnx_inference": 0.045159963658079505,
+          "physics": 0.08529255975736305
+        },
+        "note": "Stage timers exclude uninstrumented setup, observation construction, policy command updates, contacts and Python overhead."
+      },
+      "turn": {
+        "reason": "ANGLE_REACHED",
+        "angle_rad": -1.5719210986193437,
+        "path_m": 0.22885266614811356,
+        "displacement_m": 0.0221472304260976,
+        "command_duration_s": 1.8599999999999999,
+        "target_rad": -1.5707963267948966,
+        "speed_command": 0.0,
+        "max_time": 10.0,
+        "max_path": 0.7,
+        "max_displacement": 0.45
+      }
+    },
+    "turn-walk": {
+      "mode": "turn",
+      "actuator_model": "XML position (no BAM)",
+      "seconds": 16.0,
+      "ball": [
+        0.8,
+        0.35
+      ],
+      "push_velocity": null,
+      "fell": false,
+      "stopped": false,
+      "final_distance": 0.6843890208627393,
+      "mean_final_speed": 0.00033656453235455077,
+      "max_tilt_deg": 5.4339069643952005,
+      "final_position": [
+        0.13333318666482713,
+        0.19526250656358438
+      ],
+      "touched_ball": false,
+      "final_heading_error": 0.0,
+      "script_sha256": "dcd5a321e45a7f747c01878159d522a1e8d05d0dc23a20ee2f1a2032853a272b",
+      "runner_commit": "53b8971b61baf5b7f3c16d135dd7cac37623de4b",
+      "versions": {
+        "mujoco": "3.13.0",
+        "numpy": "2.2.6",
+        "onnxruntime": "1.23.2"
+      },
+      "policy_sha256": {
+        "alpha_walking.onnx": "e36332d383997d51401897734cd3e79cf5038406feddb18b4d57ecfb141daa6c",
+        "alpha_stand.onnx": "1569268713e40deea795dd2922dba50d3621e15a872855408b6b1b125b1c094b"
+      },
+      "success": true,
+      "timing": {
+        "wall_seconds": 0.40954666695324704,
+        "seconds_by_stage": {
+          "onnx_inference": 0.048445474239997566,
+          "physics": 0.08424010768067092
+        },
+        "note": "Stage timers exclude uninstrumented setup, observation construction, policy command updates, contacts and Python overhead."
+      },
+      "turn": {
+        "reason": "ANGLE_REACHED",
+        "angle_rad": 1.7127590882428,
+        "path_m": 0.42664380273905217,
+        "displacement_m": 0.23497336376622,
+        "command_duration_s": 2.04,
+        "target_rad": 1.5707963267948966,
+        "speed_command": 0.3,
+        "max_time": 10.0,
+        "max_path": 0.7,
+        "max_displacement": 0.45
+      }
+    },
+    "regression-vision-static": {
+      "mode": "ball",
+      "actuator_model": "XML position (no BAM)",
+      "seconds": 18.0,
+      "ball": [
+        0.8,
+        0.35
+      ],
+      "push_velocity": null,
+      "fell": false,
+      "stopped": true,
+      "final_distance": 0.30414920738917367,
+      "mean_final_speed": 0.00038158262358717055,
+      "max_tilt_deg": 4.987701668857144,
+      "final_position": [
+        0.5353406481536755,
+        0.20012616026889155
+      ],
+      "touched_ball": false,
+      "final_heading_error": -0.16030324984600997,
+      "script_sha256": "78792046db46b5a0641c211ba813e0f50be3d7d2c888815a0f8f250a94975a49",
+      "runner_commit": "53b8971b61baf5b7f3c16d135dd7cac37623de4b",
+      "versions": {
+        "mujoco": "3.13.0",
+        "numpy": "2.2.6",
+        "onnxruntime": "1.23.2"
+      },
+      "policy_sha256": {
+        "alpha_walking.onnx": "e36332d383997d51401897734cd3e79cf5038406feddb18b4d57ecfb141daa6c",
+        "alpha_stand.onnx": "1569268713e40deea795dd2922dba50d3621e15a872855408b6b1b125b1c094b"
+      },
+      "success": true,
+      "control": "RGB magenta component horizontal offset and apparent diameter only",
+      "vision_source_sha256": "67eafb5bbfd8e077a35bf39ba9fe3eee5338626d6da08bb5a3d32464ba4cd61e",
+      "vision_events": [
+        {
+          "t": 2.0,
+          "previous": "LOST",
+          "state": "APPROACH"
+        },
+        {
+          "t": 6.72,
+          "previous": "APPROACH",
+          "state": "STOP"
+        }
+      ],
+      "image_thresholds": {
+        "stop_size": 0.17,
+        "resume_size": 0.14,
+        "dwell": 0.8
+      },
+      "lost_samples": 0,
+      "lost_commands_zero": true,
+      "blackout": null,
+      "perception_evaluation": {
+        "samples": 90,
+        "missed_visible_ball": 0,
+        "detection_without_visible_ball": 0,
+        "max_horizontal_error_px": 0.5863032398400208
+      },
+      "search": {
+        "scenario": null,
+        "touched_occluder": false,
+        "move_seconds": 2.0,
+        "events": [],
+        "reacquisitions": 0,
+        "final_internal_state": "TRACK",
+        "head_command_limit": 1.1,
+        "body_scan_time_limit": 6.0,
+        "max_abs_head_encoder": 0.3875862742518215,
+        "max_abs_head_command": 0.0,
+        "head_search_body_commands_zero": true,
+        "body_turn_metrics": null,
+        "search_time_limit": 28.0,
+        "search_displacement_limit": 0.5,
+        "body_search_forward_commands_zero": true
+      },
+      "search_source_sha256": "79947b45ccf93534a2ac7726439b741f39f577cd25845b4afb15589d2a2cfd7d",
+      "timing": {
+        "wall_seconds": 12.828341333020944,
+        "seconds_by_stage": {
+          "robot_rgb_render": 10.17731076234486,
+          "detection": 1.2124520368524827,
+          "segmentation_render": 0.572114705981221,
+          "onnx_inference": 0.12679733493132517,
+          "physics": 0.13706058403477073
+        },
+        "note": "Stage timers exclude uninstrumented setup, observation construction, policy command updates, contacts and Python overhead."
+      }
+    },
+    "timeout": {
+      "mode": "ball",
+      "actuator_model": "XML position (no BAM)",
+      "seconds": 32.0,
+      "ball": [
+        0.8,
+        0.0
+      ],
+      "push_velocity": null,
+      "fell": false,
+      "stopped": false,
+      "final_distance": 0.5582788922960087,
+      "mean_final_speed": 0.0003914814182092014,
+      "max_tilt_deg": 4.940764021724528,
+      "final_position": [
+        0.2421142656839162,
+        -0.02094824646270814
+      ],
+      "touched_ball": false,
+      "final_heading_error": 2.8360313494026617,
+      "script_sha256": "adeb6098c6d6074a0059cee85e6ff868d6e09eeaf337d292293c22ceea2efb6f",
+      "runner_commit": "53b8971b61baf5b7f3c16d135dd7cac37623de4b",
+      "versions": {
+        "mujoco": "3.13.0",
+        "numpy": "2.2.6",
+        "onnxruntime": "1.23.2"
+      },
+      "policy_sha256": {
+        "alpha_walking.onnx": "e36332d383997d51401897734cd3e79cf5038406feddb18b4d57ecfb141daa6c",
+        "alpha_stand.onnx": "1569268713e40deea795dd2922dba50d3621e15a872855408b6b1b125b1c094b"
+      },
+      "success": false,
+      "control": "RGB magenta component horizontal offset and apparent diameter only",
+      "vision_source_sha256": "67eafb5bbfd8e077a35bf39ba9fe3eee5338626d6da08bb5a3d32464ba4cd61e",
+      "vision_events": [],
+      "image_thresholds": {
+        "stop_size": 0.17,
+        "resume_size": 0.14,
+        "dwell": 0.8
+      },
+      "lost_samples": 0,
+      "lost_commands_zero": true,
+      "blackout": [
+        4.0,
+        32.0
+      ],
+      "perception_evaluation": {
+        "samples": 160,
+        "missed_visible_ball": 0,
+        "detection_without_visible_ball": 0,
+        "max_horizontal_error_px": 0.15253742028329498
+      },
+      "search": {
+        "scenario": null,
+        "touched_occluder": false,
+        "move_seconds": 2.0,
+        "events": [
+          {
+            "t": 4.0,
+            "previous": "TRACK",
+            "state": "SETTLE_LOST"
+          },
+          {
+            "t": 5.5,
+            "previous": "SETTLE_LOST",
+            "state": "HEAD_SEARCH"
+          },
+          {
+            "t": 12.84,
+            "previous": "HEAD_SEARCH",
+            "state": "BODY_SEARCH"
+          },
+          {
+            "t": 18.06,
+            "previous": "BODY_SEARCH",
+            "state": "GAVE_UP"
+          }
+        ],
+        "reacquisitions": 0,
+        "final_internal_state": "GAVE_UP",
+        "head_command_limit": 1.1,
+        "body_scan_time_limit": 6.0,
+        "max_abs_head_encoder": 1.06891269804215,
+        "max_abs_head_command": 1.100000023841858,
+        "head_search_body_commands_zero": true,
+        "body_turn_metrics": {
+          "reason": "ANGLE_REACHED",
+          "angle_rad": 3.149236300146019,
+          "path_m": 0.5448579494895309,
+          "displacement_m": 0.007079968493913051,
+          "command_duration_s": 5.199999999999999,
+          "target_rad": 3.141592653589793,
+          "speed_command": 0.0,
+          "max_time": 6.0,
+          "max_path": 0.7,
+          "max_displacement": 0.15
+        },
+        "search_time_limit": 28.0,
+        "search_displacement_limit": 0.5,
+        "body_search_forward_commands_zero": true
+      },
+      "search_source_sha256": "79947b45ccf93534a2ac7726439b741f39f577cd25845b4afb15589d2a2cfd7d",
+      "timing": {
+        "wall_seconds": 24.9302473749849,
+        "seconds_by_stage": {
+          "robot_rgb_render": 21.615338958974462,
+          "detection": 0.7959237397881225,
+          "segmentation_render": 1.121504827577155,
+          "onnx_inference": 0.24024950544117019,
+          "physics": 0.23939633002737537
+        },
+        "note": "Stage timers exclude uninstrumented setup, observation construction, policy command updates, contacts and Python overhead."
+      }
+    },
+    "turn-yaw": {
+      "mode": "turn",
+      "actuator_model": "XML position (no BAM)",
+      "seconds": 16.0,
+      "ball": [
+        0.8,
+        0.35
+      ],
+      "push_velocity": null,
+      "fell": false,
+      "stopped": false,
+      "final_distance": 0.8732912398671675,
+      "mean_final_speed": 0.00040114680495858553,
+      "max_tilt_deg": 6.871970942098496,
+      "final_position": [
+        0.0032306893878953262,
+        -0.0074860211189327975
+      ],
+      "touched_ball": false,
+      "final_heading_error": 0.0,
+      "script_sha256": "dcd5a321e45a7f747c01878159d522a1e8d05d0dc23a20ee2f1a2032853a272b",
+      "runner_commit": "53b8971b61baf5b7f3c16d135dd7cac37623de4b",
+      "versions": {
+        "mujoco": "3.13.0",
+        "numpy": "2.2.6",
+        "onnxruntime": "1.23.2"
+      },
+      "policy_sha256": {
+        "alpha_walking.onnx": "e36332d383997d51401897734cd3e79cf5038406feddb18b4d57ecfb141daa6c",
+        "alpha_stand.onnx": "1569268713e40deea795dd2922dba50d3621e15a872855408b6b1b125b1c094b"
+      },
+      "success": true,
+      "timing": {
+        "wall_seconds": 0.5267358749988489,
+        "seconds_by_stage": {
+          "onnx_inference": 0.048921497887931764,
+          "physics": 0.08589886885602027
+        },
+        "note": "Stage timers exclude uninstrumented setup, observation construction, policy command updates, contacts and Python overhead."
+      },
+      "turn": {
+        "reason": "ANGLE_REACHED",
+        "angle_rad": 1.6871934030579958,
+        "path_m": 0.2910063487949263,
+        "displacement_m": 0.0074375605745790755,
+        "command_duration_s": 2.54,
+        "target_rad": 1.5707963267948966,
+        "speed_command": 0.0,
+        "max_time": 10.0,
+        "max_path": 0.7,
+        "max_displacement": 0.45
+      }
+    },
+    "turn-walk-right": {
+      "mode": "turn",
+      "actuator_model": "XML position (no BAM)",
+      "seconds": 16.0,
+      "ball": [
+        0.8,
+        0.35
+      ],
+      "push_velocity": null,
+      "fell": false,
+      "stopped": false,
+      "final_distance": 0.8247212931887059,
+      "mean_final_speed": 0.00040394215852991225,
+      "max_tilt_deg": 5.016206843949084,
+      "final_position": [
+        0.1430268521720535,
+        -0.1485493902031076
+      ],
+      "touched_ball": false,
+      "final_heading_error": 0.0,
+      "script_sha256": "dcd5a321e45a7f747c01878159d522a1e8d05d0dc23a20ee2f1a2032853a272b",
+      "runner_commit": "53b8971b61baf5b7f3c16d135dd7cac37623de4b",
+      "versions": {
+        "mujoco": "3.13.0",
+        "numpy": "2.2.6",
+        "onnxruntime": "1.23.2"
+      },
+      "policy_sha256": {
+        "alpha_walking.onnx": "e36332d383997d51401897734cd3e79cf5038406feddb18b4d57ecfb141daa6c",
+        "alpha_stand.onnx": "1569268713e40deea795dd2922dba50d3621e15a872855408b6b1b125b1c094b"
+      },
+      "success": true,
+      "timing": {
+        "wall_seconds": 0.40547262504696846,
+        "seconds_by_stage": {
+          "onnx_inference": 0.04673628369346261,
+          "physics": 0.08710549789248034
+        },
+        "note": "Stage timers exclude uninstrumented setup, observation construction, policy command updates, contacts and Python overhead."
+      },
+      "turn": {
+        "reason": "ANGLE_REACHED",
+        "angle_rad": -1.867322214933969,
+        "path_m": 0.31488355910706267,
+        "displacement_m": 0.20428613617119706,
+        "command_duration_s": 1.6,
+        "target_rad": -1.5707963267948966,
+        "speed_command": 0.3,
+        "max_time": 10.0,
+        "max_path": 0.7,
+        "max_displacement": 0.45
+      }
+    },
+    "media-repeat": {
+      "mode": "ball",
+      "actuator_model": "XML position (no BAM)",
+      "seconds": 40.0,
+      "ball": [
+        0.8,
+        0.0
+      ],
+      "push_velocity": null,
+      "fell": false,
+      "stopped": true,
+      "final_distance": 0.2970744359764694,
+      "mean_final_speed": 0.0004752331567036765,
+      "max_tilt_deg": 4.402633792445224,
+      "final_position": [
+        0.7743469156917997,
+        0.7553341616011924
+      ],
+      "touched_ball": false,
+      "final_heading_error": -0.16350347722633438,
+      "script_sha256": "8958afb6e5cbdf776db91e71144c812baba05e21cceeeb0f6a8e2e3e32e22a52",
+      "runner_commit": "53b8971b61baf5b7f3c16d135dd7cac37623de4b",
+      "versions": {
+        "mujoco": "3.13.0",
+        "numpy": "2.2.6",
+        "onnxruntime": "1.23.2"
+      },
+      "policy_sha256": {
+        "alpha_walking.onnx": "e36332d383997d51401897734cd3e79cf5038406feddb18b4d57ecfb141daa6c",
+        "alpha_stand.onnx": "1569268713e40deea795dd2922dba50d3621e15a872855408b6b1b125b1c094b"
+      },
+      "success": true,
+      "control": "RGB magenta component horizontal offset and apparent diameter only",
+      "vision_source_sha256": "67eafb5bbfd8e077a35bf39ba9fe3eee5338626d6da08bb5a3d32464ba4cd61e",
+      "vision_events": [
+        {
+          "t": 2.0,
+          "previous": "LOST",
+          "state": "APPROACH"
+        },
+        {
+          "t": 12.04,
+          "previous": "APPROACH",
+          "state": "STOP"
+        },
+        {
+          "t": 33.52,
+          "previous": "STOP",
+          "state": "APPROACH"
+        },
+        {
+          "t": 35.28,
+          "previous": "APPROACH",
+          "state": "STOP"
+        }
+      ],
+      "image_thresholds": {
+        "stop_size": 0.17,
+        "resume_size": 0.14,
+        "dwell": 0.8
+      },
+      "lost_samples": 0,
+      "lost_commands_zero": true,
+      "blackout": null,
+      "perception_evaluation": {
+        "samples": 200,
+        "missed_visible_ball": 1,
+        "detection_without_visible_ball": 0,
+        "max_horizontal_error_px": 1.6289977500442205
+      },
+      "search": {
+        "scenario": "repeat",
+        "touched_occluder": false,
+        "move_seconds": 2.0,
+        "events": [
+          {
+            "t": 4.2,
+            "previous": "TRACK",
+            "state": "SETTLE_LOST"
+          },
+          {
+            "t": 5.7,
+            "previous": "SETTLE_LOST",
+            "state": "HEAD_SEARCH"
+          },
+          {
+            "t": 7.0,
+            "previous": "HEAD_SEARCH",
+            "state": "ALIGN"
+          },
+          {
+            "t": 9.98,
+            "previous": "ALIGN",
+            "state": "TRACK"
+          },
+          {
+            "t": 24.24,
+            "previous": "TRACK",
+            "state": "SETTLE_LOST"
+          },
+          {
+            "t": 25.74,
+            "previous": "SETTLE_LOST",
+            "state": "HEAD_SEARCH"
+          },
+          {
+            "t": 30.88,
+            "previous": "HEAD_SEARCH",
+            "state": "ALIGN"
+          },
+          {
+            "t": 33.52,
+            "previous": "ALIGN",
+            "state": "TRACK"
+          }
+        ],
+        "reacquisitions": 2,
+        "final_internal_state": "TRACK",
+        "head_command_limit": 1.1,
+        "body_scan_time_limit": 6.0,
+        "max_abs_head_encoder": 1.2443514663885857,
+        "max_abs_head_command": 1.100000023841858,
+        "head_search_body_commands_zero": true,
+        "body_turn_metrics": null,
+        "search_time_limit": 28.0,
+        "search_displacement_limit": 0.5,
+        "body_search_forward_commands_zero": true
+      },
+      "search_source_sha256": "79947b45ccf93534a2ac7726439b741f39f577cd25845b4afb15589d2a2cfd7d",
+      "timing": {
+        "wall_seconds": 55.68699854100123,
+        "seconds_by_stage": {
+          "robot_rgb_render": 22.616019561130088,
+          "detection": 2.2457012071972713,
+          "segmentation_render": 1.2567904632887803,
+          "onnx_inference": 0.39594999596010894,
+          "presentation_render": 26.801239745807834,
+          "video_encode_write": 0.7374366476433352,
+          "physics": 0.3275985826039687,
+          "video_flush": 0.04835100000491366
+        },
+        "note": "Stage timers exclude uninstrumented setup, observation construction, policy command updates, contacts and Python overhead."
+      }
+    },
+    "regression-coordinate-behind": {
+      "mode": "ball",
+      "actuator_model": "XML position (no BAM)",
+      "seconds": 30.0,
+      "ball": [
+        -0.6,
+        0.3
+      ],
+      "push_velocity": null,
+      "fell": false,
+      "stopped": true,
+      "final_distance": 0.23852151554914797,
+      "mean_final_speed": 0.00047095899299831335,
+      "max_tilt_deg": 5.485342269768391,
+      "final_position": [
+        -0.3627221645894957,
+        0.3243257518438398
+      ],
+      "touched_ball": false,
+      "final_heading_error": -0.08701130581547112,
+      "script_sha256": "78792046db46b5a0641c211ba813e0f50be3d7d2c888815a0f8f250a94975a49",
+      "runner_commit": "53b8971b61baf5b7f3c16d135dd7cac37623de4b",
+      "versions": {
+        "mujoco": "3.13.0",
+        "numpy": "2.2.6",
+        "onnxruntime": "1.23.2"
+      },
+      "policy_sha256": {
+        "alpha_walking.onnx": "e36332d383997d51401897734cd3e79cf5038406feddb18b4d57ecfb141daa6c",
+        "alpha_stand.onnx": "1569268713e40deea795dd2922dba50d3621e15a872855408b6b1b125b1c094b"
+      },
+      "success": true,
+      "timing": {
+        "wall_seconds": 0.5754769159830175,
+        "seconds_by_stage": {
+          "onnx_inference": 0.08911066921427846,
+          "physics": 0.1584577487083152
+        },
+        "note": "Stage timers exclude uninstrumented setup, observation construction, policy command updates, contacts and Python overhead."
+      }
+    },
+    "regression-coordinate-baseline": {
+      "mode": "baseline",
+      "actuator_model": "XML position (no BAM)",
+      "seconds": 8.0,
+      "ball": [
+        0.8,
+        0.35
+      ],
+      "push_velocity": null,
+      "fell": false,
+      "stopped": false,
+      "final_distance": 0.870762012860731,
+      "mean_final_speed": 0.0003472702525308129,
+      "max_tilt_deg": 1.3200976773520459,
+      "final_position": [
+        0.00272889897486101,
+        -0.00012179953758143885
+      ],
+      "touched_ball": false,
+      "final_heading_error": 0.0,
+      "script_sha256": "78792046db46b5a0641c211ba813e0f50be3d7d2c888815a0f8f250a94975a49",
+      "runner_commit": "53b8971b61baf5b7f3c16d135dd7cac37623de4b",
+      "versions": {
+        "mujoco": "3.13.0",
+        "numpy": "2.2.6",
+        "onnxruntime": "1.23.2"
+      },
+      "policy_sha256": {
+        "alpha_walking.onnx": "e36332d383997d51401897734cd3e79cf5038406feddb18b4d57ecfb141daa6c",
+        "alpha_stand.onnx": "1569268713e40deea795dd2922dba50d3621e15a872855408b6b1b125b1c094b"
+      },
+      "success": true,
+      "timing": {
+        "wall_seconds": 0.31265458301641047,
+        "seconds_by_stage": {
+          "onnx_inference": 0.023693379131145775,
+          "physics": 0.04316139966249466
+        },
+        "note": "Stage timers exclude uninstrumented setup, observation construction, policy command updates, contacts and Python overhead."
+      }
+    },
+    "regression-coordinate-right": {
+      "mode": "ball",
+      "actuator_model": "XML position (no BAM)",
+      "seconds": 24.0,
+      "ball": [
+        0.65,
+        -0.5
+      ],
+      "push_velocity": null,
+      "fell": false,
+      "stopped": true,
+      "final_distance": 0.24477941741579265,
+      "mean_final_speed": 0.0003624843972406646,
+      "max_tilt_deg": 5.304856204823446,
+      "final_position": [
+        0.4546627442833601,
+        -0.35248620498574756
+      ],
+      "touched_ball": false,
+      "final_heading_error": -0.15734288424812493,
+      "script_sha256": "78792046db46b5a0641c211ba813e0f50be3d7d2c888815a0f8f250a94975a49",
+      "runner_commit": "53b8971b61baf5b7f3c16d135dd7cac37623de4b",
+      "versions": {
+        "mujoco": "3.13.0",
+        "numpy": "2.2.6",
+        "onnxruntime": "1.23.2"
+      },
+      "policy_sha256": {
+        "alpha_walking.onnx": "e36332d383997d51401897734cd3e79cf5038406feddb18b4d57ecfb141daa6c",
+        "alpha_stand.onnx": "1569268713e40deea795dd2922dba50d3621e15a872855408b6b1b125b1c094b"
+      },
+      "success": true,
+      "timing": {
+        "wall_seconds": 0.5011080000549555,
+        "seconds_by_stage": {
+          "onnx_inference": 0.06960557255661115,
+          "physics": 0.12827304826350883
+        },
+        "note": "Stage timers exclude uninstrumented setup, observation construction, policy command updates, contacts and Python overhead."
+      }
+    },
+    "media-rear": {
+      "mode": "ball",
+      "actuator_model": "XML position (no BAM)",
+      "seconds": 32.0,
+      "ball": [
+        0.8,
+        0.0
+      ],
+      "push_velocity": null,
+      "fell": false,
+      "stopped": true,
+      "final_distance": 0.3002640007584824,
+      "mean_final_speed": 0.00041751973043850177,
+      "max_tilt_deg": 6.799796802847219,
+      "final_position": [
+        -0.5037677849095551,
+        0.04904023750042697
+      ],
+      "touched_ball": false,
+      "final_heading_error": -0.028849645719681852,
+      "script_sha256": "8958afb6e5cbdf776db91e71144c812baba05e21cceeeb0f6a8e2e3e32e22a52",
+      "runner_commit": "53b8971b61baf5b7f3c16d135dd7cac37623de4b",
+      "versions": {
+        "mujoco": "3.13.0",
+        "numpy": "2.2.6",
+        "onnxruntime": "1.23.2"
+      },
+      "policy_sha256": {
+        "alpha_walking.onnx": "e36332d383997d51401897734cd3e79cf5038406feddb18b4d57ecfb141daa6c",
+        "alpha_stand.onnx": "1569268713e40deea795dd2922dba50d3621e15a872855408b6b1b125b1c094b"
+      },
+      "success": true,
+      "control": "RGB magenta component horizontal offset and apparent diameter only",
+      "vision_source_sha256": "67eafb5bbfd8e077a35bf39ba9fe3eee5338626d6da08bb5a3d32464ba4cd61e",
+      "vision_events": [
+        {
+          "t": 2.0,
+          "previous": "LOST",
+          "state": "APPROACH"
+        },
+        {
+          "t": 24.0,
+          "previous": "APPROACH",
+          "state": "STOP"
+        }
+      ],
+      "image_thresholds": {
+        "stop_size": 0.17,
+        "resume_size": 0.14,
+        "dwell": 0.8
+      },
+      "lost_samples": 0,
+      "lost_commands_zero": true,
+      "blackout": null,
+      "perception_evaluation": {
+        "samples": 160,
+        "missed_visible_ball": 2,
+        "detection_without_visible_ball": 0,
+        "max_horizontal_error_px": 1.1676471408258209
+      },
+      "search": {
+        "scenario": "behind",
+        "touched_occluder": false,
+        "move_seconds": 2.0,
+        "events": [
+          {
+            "t": 4.48,
+            "previous": "TRACK",
+            "state": "SETTLE_LOST"
+          },
+          {
+            "t": 5.98,
+            "previous": "SETTLE_LOST",
+            "state": "HEAD_SEARCH"
+          },
+          {
+            "t": 13.32,
+            "previous": "HEAD_SEARCH",
+            "state": "BODY_SEARCH"
+          },
+          {
+            "t": 17.44,
+            "previous": "BODY_SEARCH",
+            "state": "ALIGN"
+          },
+          {
+            "t": 18.86,
+            "previous": "ALIGN",
+            "state": "TRACK"
+          }
+        ],
+        "reacquisitions": 1,
+        "final_internal_state": "TRACK",
+        "head_command_limit": 1.1,
+        "body_scan_time_limit": 6.0,
+        "max_abs_head_encoder": 1.0689837061359397,
+        "max_abs_head_command": 1.100000023841858,
+        "head_search_body_commands_zero": true,
+        "body_turn_metrics": {
+          "reason": null,
+          "angle_rad": 2.3615747027099814,
+          "path_m": 0.41075004538789056,
+          "displacement_m": 0.014249575473584075,
+          "command_duration_s": 4.080000000000002,
+          "target_rad": 3.141592653589793,
+          "speed_command": 0.0,
+          "max_time": 6.0,
+          "max_path": 0.7,
+          "max_displacement": 0.15
+        },
+        "search_time_limit": 28.0,
+        "search_displacement_limit": 0.5,
+        "body_search_forward_commands_zero": true
+      },
+      "search_source_sha256": "79947b45ccf93534a2ac7726439b741f39f577cd25845b4afb15589d2a2cfd7d",
+      "timing": {
+        "wall_seconds": 46.74113037501229,
+        "seconds_by_stage": {
+          "robot_rgb_render": 19.297707741032355,
+          "detection": 1.405626465450041,
+          "segmentation_render": 1.0540737874107435,
+          "onnx_inference": 0.3268303481163457,
+          "presentation_render": 22.500704684935044,
+          "video_encode_write": 0.6982443788438104,
+          "physics": 0.2649517470272258,
+          "video_flush": 0.037252207985147834
+        },
+        "note": "Stage timers exclude uninstrumented setup, observation construction, policy command updates, contacts and Python overhead."
+      }
+    },
+    "regression-vision-moving": {
+      "mode": "follow",
+      "actuator_model": "XML position (no BAM)",
+      "seconds": 42.0,
+      "ball": [
+        0.6,
+        0.05
+      ],
+      "push_velocity": null,
+      "fell": false,
+      "stopped": true,
+      "final_distance": 0.28058983971314644,
+      "mean_final_speed": 0.0003763241937501223,
+      "max_tilt_deg": 6.008760925072091,
+      "final_position": [
+        1.1177528338904594,
+        0.05289029798952808
+      ],
+      "touched_ball": false,
+      "final_heading_error": 0.14954920258140886,
+      "script_sha256": "78792046db46b5a0641c211ba813e0f50be3d7d2c888815a0f8f250a94975a49",
+      "runner_commit": "53b8971b61baf5b7f3c16d135dd7cac37623de4b",
+      "versions": {
+        "mujoco": "3.13.0",
+        "numpy": "2.2.6",
+        "onnxruntime": "1.23.2"
+      },
+      "policy_sha256": {
+        "alpha_walking.onnx": "e36332d383997d51401897734cd3e79cf5038406feddb18b4d57ecfb141daa6c",
+        "alpha_stand.onnx": "1569268713e40deea795dd2922dba50d3621e15a872855408b6b1b125b1c094b"
+      },
+      "success": true,
+      "target_model": "scripted mocap; camera RGB control; coordinates used only by evaluator",
+      "keyframes": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          8.0,
+          0.0,
+          0.0
+        ],
+        [
+          16.0,
+          0.4,
+          0.18
+        ],
+        [
+          23.0,
+          0.4,
+          0.18
+        ],
+        [
+          31.0,
+          0.77,
+          -0.12
+        ],
+        [
+          42.0,
+          0.77,
+          -0.12
+        ]
+      ],
+      "follow_source_sha256": "236edb45426a7d9c8eab7ce838d62962359fc0fb5c805f61b602cba2738ce5a4",
+      "follow": {
+        "events": [
+          {
+            "t": 4.6,
+            "event": "stop"
+          },
+          {
+            "t": 9.72,
+            "event": "resume"
+          },
+          {
+            "t": 11.32,
+            "event": "stop"
+          },
+          {
+            "t": 13.24,
+            "event": "resume"
+          },
+          {
+            "t": 15.0,
+            "event": "stop"
+          },
+          {
+            "t": 23.52,
+            "event": "resume"
+          },
+          {
+            "t": 24.64,
+            "event": "stop"
+          },
+          {
+            "t": 27.68,
+            "event": "resume"
+          },
+          {
+            "t": 28.32,
+            "event": "stop"
+          },
+          {
+            "t": 29.12,
+            "event": "resume"
+          },
+          {
+            "t": 31.68,
+            "event": "stop"
+          }
+        ],
+        "stop_count": 6,
+        "resume_count": 5,
+        "resumed_after_each_departure": [
+          true,
+          true
+        ],
+        "min_transition_interval": 0.6400000000000006,
+        "pause_checks": [
+          {
+            "start": 0.0,
+            "end": 8.0,
+            "observed": true,
+            "held_stop": true,
+            "mean_speed": 0.00024550136928974545
+          },
+          {
+            "start": 16.0,
+            "end": 23.0,
+            "observed": true,
+            "held_stop": true,
+            "mean_speed": 0.00035141659098349257
+          },
+          {
+            "start": 31.0,
+            "end": 42.0,
+            "observed": true,
+            "held_stop": true,
+            "mean_speed": 0.00037632419375012243
+          }
+        ],
+        "tracking_lost": false,
+        "max_far_duration": 0.0,
+        "max_distance": 0.6021904046954432,
+        "max_distance_after_first_stop": 0.4858729818219522,
+        "min_distance": 0.2678939032085936,
+        "final_held_stop": true
+      },
+      "control": "RGB magenta component horizontal offset and apparent diameter only",
+      "vision_source_sha256": "67eafb5bbfd8e077a35bf39ba9fe3eee5338626d6da08bb5a3d32464ba4cd61e",
+      "vision_events": [
+        {
+          "t": 2.0,
+          "previous": "LOST",
+          "state": "APPROACH"
+        },
+        {
+          "t": 4.6,
+          "previous": "APPROACH",
+          "state": "STOP"
+        },
+        {
+          "t": 9.72,
+          "previous": "STOP",
+          "state": "APPROACH"
+        },
+        {
+          "t": 11.32,
+          "previous": "APPROACH",
+          "state": "STOP"
+        },
+        {
+          "t": 13.24,
+          "previous": "STOP",
+          "state": "APPROACH"
+        },
+        {
+          "t": 15.0,
+          "previous": "APPROACH",
+          "state": "STOP"
+        },
+        {
+          "t": 23.52,
+          "previous": "STOP",
+          "state": "APPROACH"
+        },
+        {
+          "t": 24.64,
+          "previous": "APPROACH",
+          "state": "STOP"
+        },
+        {
+          "t": 27.68,
+          "previous": "STOP",
+          "state": "APPROACH"
+        },
+        {
+          "t": 28.32,
+          "previous": "APPROACH",
+          "state": "STOP"
+        },
+        {
+          "t": 29.12,
+          "previous": "STOP",
+          "state": "APPROACH"
+        },
+        {
+          "t": 31.68,
+          "previous": "APPROACH",
+          "state": "STOP"
+        }
+      ],
+      "image_thresholds": {
+        "stop_size": 0.17,
+        "resume_size": 0.14,
+        "dwell": 0.8
+      },
+      "lost_samples": 0,
+      "lost_commands_zero": true,
+      "blackout": null,
+      "perception_evaluation": {
+        "samples": 210,
+        "missed_visible_ball": 0,
+        "detection_without_visible_ball": 0,
+        "max_horizontal_error_px": 0.5667101326731654
+      },
+      "search": {
+        "scenario": null,
+        "touched_occluder": false,
+        "move_seconds": 2.0,
+        "events": [],
+        "reacquisitions": 0,
+        "final_internal_state": "TRACK",
+        "head_command_limit": 1.1,
+        "body_scan_time_limit": 6.0,
+        "max_abs_head_encoder": 0.2971357889482562,
+        "max_abs_head_command": 0.0,
+        "head_search_body_commands_zero": true,
+        "body_turn_metrics": null,
+        "search_time_limit": 28.0,
+        "search_displacement_limit": 0.5,
+        "body_search_forward_commands_zero": true
+      },
+      "search_source_sha256": "79947b45ccf93534a2ac7726439b741f39f577cd25845b4afb15589d2a2cfd7d",
+      "timing": {
+        "wall_seconds": 29.089471540995874,
+        "seconds_by_stage": {
+          "robot_rgb_render": 23.15039033506764,
+          "detection": 3.03476116101956,
+          "segmentation_render": 1.289347117592115,
+          "onnx_inference": 0.29980437707854435,
+          "physics": 0.3153769845375791
+        },
+        "note": "Stage timers exclude uninstrumented setup, observation construction, policy command updates, contacts and Python overhead."
+      }
+    },
+    "regression-vision-blackout": {
+      "mode": "ball",
+      "actuator_model": "XML position (no BAM)",
+      "seconds": 18.0,
+      "ball": [
+        0.8,
+        0.35
+      ],
+      "push_velocity": null,
+      "fell": false,
+      "stopped": true,
+      "final_distance": 0.2927767828182935,
+      "mean_final_speed": 0.0003919027491183204,
+      "max_tilt_deg": 5.239020439112294,
+      "final_position": [
+        0.5289694614009439,
+        0.23927199223260734
+      ],
+      "touched_ball": false,
+      "final_heading_error": 0.12322946259473005,
+      "script_sha256": "78792046db46b5a0641c211ba813e0f50be3d7d2c888815a0f8f250a94975a49",
+      "runner_commit": "53b8971b61baf5b7f3c16d135dd7cac37623de4b",
+      "versions": {
+        "mujoco": "3.13.0",
+        "numpy": "2.2.6",
+        "onnxruntime": "1.23.2"
+      },
+      "policy_sha256": {
+        "alpha_walking.onnx": "e36332d383997d51401897734cd3e79cf5038406feddb18b4d57ecfb141daa6c",
+        "alpha_stand.onnx": "1569268713e40deea795dd2922dba50d3621e15a872855408b6b1b125b1c094b"
+      },
+      "success": true,
+      "control": "RGB magenta component horizontal offset and apparent diameter only",
+      "vision_source_sha256": "67eafb5bbfd8e077a35bf39ba9fe3eee5338626d6da08bb5a3d32464ba4cd61e",
+      "vision_events": [
+        {
+          "t": 2.0,
+          "previous": "LOST",
+          "state": "APPROACH"
+        },
+        {
+          "t": 8.88,
+          "previous": "APPROACH",
+          "state": "STOP"
+        }
+      ],
+      "image_thresholds": {
+        "stop_size": 0.17,
+        "resume_size": 0.14,
+        "dwell": 0.8
+      },
+      "lost_samples": 0,
+      "lost_commands_zero": true,
+      "blackout": [
+        4.0,
+        6.0
+      ],
+      "perception_evaluation": {
+        "samples": 90,
+        "missed_visible_ball": 0,
+        "detection_without_visible_ball": 0,
+        "max_horizontal_error_px": 0.7092398468965939
+      },
+      "search": {
+        "scenario": null,
+        "touched_occluder": false,
+        "move_seconds": 2.0,
+        "events": [
+          {
+            "t": 4.0,
+            "previous": "TRACK",
+            "state": "SETTLE_LOST"
+          },
+          {
+            "t": 5.5,
+            "previous": "SETTLE_LOST",
+            "state": "HEAD_SEARCH"
+          },
+          {
+            "t": 6.2,
+            "previous": "HEAD_SEARCH",
+            "state": "ALIGN"
+          },
+          {
+            "t": 6.92,
+            "previous": "ALIGN",
+            "state": "TRACK"
+          }
+        ],
+        "reacquisitions": 1,
+        "final_internal_state": "TRACK",
+        "head_command_limit": 1.1,
+        "body_scan_time_limit": 6.0,
+        "max_abs_head_encoder": 0.28724805282787086,
+        "max_abs_head_command": 0.30000001192092896,
+        "head_search_body_commands_zero": true,
+        "body_turn_metrics": null,
+        "search_time_limit": 28.0,
+        "search_displacement_limit": 0.5,
+        "body_search_forward_commands_zero": true
+      },
+      "search_source_sha256": "79947b45ccf93534a2ac7726439b741f39f577cd25845b4afb15589d2a2cfd7d",
+      "timing": {
+        "wall_seconds": 12.850285375025123,
+        "seconds_by_stage": {
+          "robot_rgb_render": 10.300661040528212,
+          "detection": 1.105279296869412,
+          "segmentation_render": 0.5946762838866562,
+          "onnx_inference": 0.12288356031058356,
+          "physics": 0.13096759124891832
+        },
+        "note": "Stage timers exclude uninstrumented setup, observation construction, policy command updates, contacts and Python overhead."
+      }
+    },
+    "regression-coordinate-follow": {
+      "mode": "follow",
+      "actuator_model": "XML position (no BAM)",
+      "seconds": 42.0,
+      "ball": [
+        0.6,
+        0.05
+      ],
+      "push_velocity": null,
+      "fell": false,
+      "stopped": true,
+      "final_distance": 0.2546760498338296,
+      "mean_final_speed": 0.0004334818835457071,
+      "max_tilt_deg": 6.697034634036702,
+      "final_position": [
+        1.1545171583230547,
+        0.06574621652846058
+      ],
+      "touched_ball": false,
+      "final_heading_error": 0.15516077938659356,
+      "script_sha256": "78792046db46b5a0641c211ba813e0f50be3d7d2c888815a0f8f250a94975a49",
+      "runner_commit": "53b8971b61baf5b7f3c16d135dd7cac37623de4b",
+      "versions": {
+        "mujoco": "3.13.0",
+        "numpy": "2.2.6",
+        "onnxruntime": "1.23.2"
+      },
+      "policy_sha256": {
+        "alpha_walking.onnx": "e36332d383997d51401897734cd3e79cf5038406feddb18b4d57ecfb141daa6c",
+        "alpha_stand.onnx": "1569268713e40deea795dd2922dba50d3621e15a872855408b6b1b125b1c094b"
+      },
+      "success": true,
+      "target_model": "scripted mocap; no contact dynamics or vision estimation",
+      "keyframes": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          8.0,
+          0.0,
+          0.0
+        ],
+        [
+          16.0,
+          0.4,
+          0.18
+        ],
+        [
+          23.0,
+          0.4,
+          0.18
+        ],
+        [
+          31.0,
+          0.77,
+          -0.12
+        ],
+        [
+          42.0,
+          0.77,
+          -0.12
+        ]
+      ],
+      "controller": {
+        "stop_distance": 0.26,
+        "resume_distance": 0.38,
+        "min_dwell": 0.8
+      },
+      "follow_source_sha256": "236edb45426a7d9c8eab7ce838d62962359fc0fb5c805f61b602cba2738ce5a4",
+      "follow": {
+        "events": [
+          {
+            "t": 4.96,
+            "event": "stop",
+            "distance": 0.2594882579848639
+          },
+          {
+            "t": 10.8,
+            "event": "resume",
+            "distance": 0.38042349369403705
+          },
+          {
+            "t": 12.9,
+            "event": "stop",
+            "distance": 0.2597376091598192
+          },
+          {
+            "t": 15.1,
+            "event": "resume",
+            "distance": 0.3803123537697615
+          },
+          {
+            "t": 16.7,
+            "event": "stop",
+            "distance": 0.25977888146468503
+          },
+          {
+            "t": 25.7,
+            "event": "resume",
+            "distance": 0.38073055657310806
+          },
+          {
+            "t": 27.58,
+            "event": "stop",
+            "distance": 0.2599133756791031
+          },
+          {
+            "t": 29.86,
+            "event": "resume",
+            "distance": 0.38080478913818067
+          },
+          {
+            "t": 31.52,
+            "event": "stop",
+            "distance": 0.25914945534259676
+          }
+        ],
+        "stop_count": 5,
+        "resume_count": 4,
+        "resumed_after_each_departure": [
+          true,
+          true
+        ],
+        "min_transition_interval": 1.5999999999999996,
+        "pause_checks": [
+          {
+            "start": 0.0,
+            "end": 8.0,
+            "observed": true,
+            "held_stop": true,
+            "mean_speed": 0.0003863889750951937
+          },
+          {
+            "start": 16.0,
+            "end": 23.0,
+            "observed": true,
+            "held_stop": true,
+            "mean_speed": 0.00039285903381714566
+          },
+          {
+            "start": 31.0,
+            "end": 42.0,
+            "observed": true,
+            "held_stop": true,
+            "mean_speed": 0.00043348188354570724
+          }
+        ],
+        "tracking_lost": false,
+        "max_far_duration": 0.0,
+        "max_distance": 0.6021904046954432,
+        "max_distance_after_first_stop": 0.3863602769308225,
+        "min_distance": 0.22098116210522908,
+        "final_held_stop": true
+      },
+      "timing": {
+        "wall_seconds": 0.7706457499880344,
+        "seconds_by_stage": {
+          "onnx_inference": 0.12284075195202604,
+          "physics": 0.2151937234448269
+        },
+        "note": "Stage timers exclude uninstrumented setup, observation construction, policy command updates, contacts and Python overhead."
+      }
+    },
+    "rear": {
+      "mode": "ball",
+      "actuator_model": "XML position (no BAM)",
+      "seconds": 40.0,
+      "ball": [
+        0.8,
+        0.0
+      ],
+      "push_velocity": null,
+      "fell": false,
+      "stopped": true,
+      "final_distance": 0.3051746918028175,
+      "mean_final_speed": 0.00033912887402563497,
+      "max_tilt_deg": 6.799796802847219,
+      "final_position": [
+        -0.4985605250770659,
+        0.04760079279938939
+      ],
+      "touched_ball": false,
+      "final_heading_error": -0.05607023495467578,
+      "script_sha256": "c9034cc06b32b927f77d50335030977ef011fa00cb93f5f49c9af4525c1e917d",
+      "runner_commit": "53b8971b61baf5b7f3c16d135dd7cac37623de4b",
+      "versions": {
+        "mujoco": "3.13.0",
+        "numpy": "2.2.6",
+        "onnxruntime": "1.23.2"
+      },
+      "policy_sha256": {
+        "alpha_walking.onnx": "e36332d383997d51401897734cd3e79cf5038406feddb18b4d57ecfb141daa6c",
+        "alpha_stand.onnx": "1569268713e40deea795dd2922dba50d3621e15a872855408b6b1b125b1c094b"
+      },
+      "success": true,
+      "control": "RGB magenta component horizontal offset and apparent diameter only",
+      "vision_source_sha256": "67eafb5bbfd8e077a35bf39ba9fe3eee5338626d6da08bb5a3d32464ba4cd61e",
+      "vision_events": [],
+      "image_thresholds": {
+        "stop_size": 0.17,
+        "resume_size": 0.14,
+        "dwell": 0.8
+      },
+      "lost_samples": 0,
+      "lost_commands_zero": true,
+      "blackout": null,
+      "perception_evaluation": {
+        "samples": 200,
+        "missed_visible_ball": 2,
+        "detection_without_visible_ball": 0,
+        "max_horizontal_error_px": 1.1676471408258209
+      },
+      "search": {
+        "scenario": "behind",
+        "touched_occluder": false,
+        "move_seconds": 2.0,
+        "events": [
+          {
+            "t": 4.48,
+            "previous": "TRACK",
+            "state": "SETTLE_LOST"
+          },
+          {
+            "t": 5.98,
+            "previous": "SETTLE_LOST",
+            "state": "HEAD_SEARCH"
+          },
+          {
+            "t": 13.32,
+            "previous": "HEAD_SEARCH",
+            "state": "BODY_SEARCH"
+          },
+          {
+            "t": 17.44,
+            "previous": "BODY_SEARCH",
+            "state": "ALIGN"
+          },
+          {
+            "t": 18.86,
+            "previous": "ALIGN",
+            "state": "TRACK"
+          }
+        ],
+        "reacquisitions": 1,
+        "final_internal_state": "TRACK",
+        "head_command_limit": 1.1,
+        "body_scan_time_limit": 6.0,
+        "max_abs_head_encoder": 1.0689837061359397,
+        "max_abs_head_command": 1.100000023841858,
+        "head_search_body_commands_zero": true,
+        "body_turn_metrics": {
+          "reason": null,
+          "angle_rad": 2.3615747027099814,
+          "path_m": 0.41075004538789056,
+          "displacement_m": 0.014249575473584075,
+          "command_duration_s": 4.080000000000002,
+          "target_rad": 3.141592653589793,
+          "speed_command": 0.0,
+          "max_time": 6.0,
+          "max_path": 0.7,
+          "max_displacement": 0.15
+        },
+        "search_time_limit": 28.0,
+        "search_displacement_limit": 0.5,
+        "body_search_forward_commands_zero": true
+      },
+      "search_source_sha256": "c5ded5c62dc7267365d2496d0a3a8a8a21db0418676b6d00f5e957550140812f",
+      "timing": {
+        "wall_seconds": 27.91327237500809,
+        "seconds_by_stage": {
+          "robot_rgb_render": 22.886269942333456,
+          "detection": 2.0966176880174316,
+          "segmentation_render": 1.2489645829191431,
+          "onnx_inference": 0.3092386965290643,
+          "physics": 0.3188946687732823
+        },
+        "note": "Stage timers exclude uninstrumented setup, observation construction, policy command updates, contacts and Python overhead."
+      }
+    },
+    "regression-coordinate-left": {
+      "mode": "ball",
+      "actuator_model": "XML position (no BAM)",
+      "seconds": 18.0,
+      "ball": [
+        0.8,
+        0.35
+      ],
+      "push_velocity": null,
+      "fell": false,
+      "stopped": true,
+      "final_distance": 0.206335857802429,
+      "mean_final_speed": 0.00037075160659889243,
+      "max_tilt_deg": 5.264987128336504,
+      "final_position": [
+        0.6108960439168274,
+        0.2674519533316644
+      ],
+      "touched_ball": false,
+      "final_heading_error": -0.24813253806966665,
+      "script_sha256": "78792046db46b5a0641c211ba813e0f50be3d7d2c888815a0f8f250a94975a49",
+      "runner_commit": "53b8971b61baf5b7f3c16d135dd7cac37623de4b",
+      "versions": {
+        "mujoco": "3.13.0",
+        "numpy": "2.2.6",
+        "onnxruntime": "1.23.2"
+      },
+      "policy_sha256": {
+        "alpha_walking.onnx": "e36332d383997d51401897734cd3e79cf5038406feddb18b4d57ecfb141daa6c",
+        "alpha_stand.onnx": "1569268713e40deea795dd2922dba50d3621e15a872855408b6b1b125b1c094b"
+      },
+      "success": true,
+      "timing": {
+        "wall_seconds": 0.4156199170392938,
+        "seconds_by_stage": {
+          "onnx_inference": 0.05216680088778958,
+          "physics": 0.09150592447258532
+        },
+        "note": "Stage timers exclude uninstrumented setup, observation construction, policy command updates, contacts and Python overhead."
+      }
+    }
+  }
+}

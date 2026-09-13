@@ -1,0 +1,383 @@
+{
+  "tests_passed": 13,
+  "baseline_regression": {
+    "final-baseline-static": {
+      "samples": 900,
+      "all_original_fields_match": true
+    },
+    "final-baseline-follow": {
+      "samples": 2100,
+      "all_original_fields_match": true
+    }
+  },
+  "runs": {
+    "search-left": {
+      "mode": "ball",
+      "actuator_model": "XML position (no BAM)",
+      "seconds": 30.0,
+      "ball": [
+        0.8,
+        0.0
+      ],
+      "push_velocity": null,
+      "fell": false,
+      "stopped": true,
+      "final_distance": 0.29623202972288276,
+      "mean_final_speed": 0.0004620817881240408,
+      "max_tilt_deg": 7.10679436996029,
+      "final_position": [
+        0.21190553982933225,
+        0.5929988946324726
+      ],
+      "touched_ball": false,
+      "final_heading_error": -0.0674929223852625,
+      "script_sha256": "4e095c6e30c33e6857d571d412e23abb6ef875b0f2a47b7018cdea6582bd1fa6",
+      "runner_commit": "53b8971b61baf5b7f3c16d135dd7cac37623de4b",
+      "versions": {
+        "mujoco": "3.13.0",
+        "numpy": "2.2.6",
+        "onnxruntime": "1.23.2"
+      },
+      "policy_sha256": {
+        "alpha_walking.onnx": "e36332d383997d51401897734cd3e79cf5038406feddb18b4d57ecfb141daa6c",
+        "alpha_stand.onnx": "1569268713e40deea795dd2922dba50d3621e15a872855408b6b1b125b1c094b"
+      },
+      "success": true,
+      "control": "RGB magenta component horizontal offset and apparent diameter only",
+      "vision_source_sha256": "67eafb5bbfd8e077a35bf39ba9fe3eee5338626d6da08bb5a3d32464ba4cd61e",
+      "vision_events": [],
+      "image_thresholds": {
+        "stop_size": 0.17,
+        "resume_size": 0.14,
+        "dwell": 0.8
+      },
+      "lost_samples": 0,
+      "lost_commands_zero": true,
+      "blackout": null,
+      "perception_evaluation": {
+        "samples": 150,
+        "missed_visible_ball": 1,
+        "detection_without_visible_ball": 0,
+        "max_horizontal_error_px": 1.579181314906851
+      },
+      "search": {
+        "scenario": "left",
+        "events": [
+          {
+            "t": 5.0,
+            "previous": "TRACK",
+            "state": "SETTLE_LOST"
+          },
+          {
+            "t": 6.5,
+            "previous": "SETTLE_LOST",
+            "state": "HEAD_SEARCH"
+          },
+          {
+            "t": 8.2,
+            "previous": "HEAD_SEARCH",
+            "state": "ALIGN"
+          },
+          {
+            "t": 11.58,
+            "previous": "ALIGN",
+            "state": "TRACK"
+          }
+        ],
+        "reacquisitions": 1,
+        "final_internal_state": "TRACK",
+        "head_command_limit": 1.1,
+        "body_scan_time_limit": 6.0,
+        "max_abs_head_encoder": 1.2875111018933616,
+        "max_abs_head_command": 1.100000023841858,
+        "head_search_body_commands_zero": true,
+        "body_search_forward_commands_zero": true
+      },
+      "search_source_sha256": "5dc12dd3940a07de1887fddc5ad8238d936602e87aff5974e071ca16b51ce56d",
+      "final_controller_replay": {
+        "command_replay_mismatches": [],
+        "lost_command_stop_pass": true,
+        "approach_success": true,
+        "fell": false,
+        "touched_ball": false
+      }
+    },
+    "search-right-fast": {
+      "mode": "ball",
+      "actuator_model": "XML position (no BAM)",
+      "seconds": 30.0,
+      "ball": [
+        0.8,
+        0.0
+      ],
+      "push_velocity": null,
+      "fell": false,
+      "stopped": true,
+      "final_distance": 0.2564192977607605,
+      "mean_final_speed": 0.000384576408603305,
+      "max_tilt_deg": 6.393895370049467,
+      "final_position": [
+        0.15076283797288084,
+        -0.5925839375783919
+      ],
+      "touched_ball": false,
+      "final_heading_error": -0.2692689901047802,
+      "script_sha256": "500f9302455ee75c8f8bdf689999cfee0782b2ef9937ec42fd8197492e68b754",
+      "runner_commit": "53b8971b61baf5b7f3c16d135dd7cac37623de4b",
+      "versions": {
+        "mujoco": "3.13.0",
+        "numpy": "2.2.6",
+        "onnxruntime": "1.23.2"
+      },
+      "policy_sha256": {
+        "alpha_walking.onnx": "e36332d383997d51401897734cd3e79cf5038406feddb18b4d57ecfb141daa6c",
+        "alpha_stand.onnx": "1569268713e40deea795dd2922dba50d3621e15a872855408b6b1b125b1c094b"
+      },
+      "success": true,
+      "control": "RGB magenta component horizontal offset and apparent diameter only",
+      "vision_source_sha256": "67eafb5bbfd8e077a35bf39ba9fe3eee5338626d6da08bb5a3d32464ba4cd61e",
+      "vision_events": [],
+      "image_thresholds": {
+        "stop_size": 0.17,
+        "resume_size": 0.14,
+        "dwell": 0.8
+      },
+      "lost_samples": 0,
+      "lost_commands_zero": true,
+      "blackout": null,
+      "perception_evaluation": {
+        "samples": 150,
+        "missed_visible_ball": 2,
+        "detection_without_visible_ball": 0,
+        "max_horizontal_error_px": 1.3401855703087904
+      },
+      "search": {
+        "scenario": "right",
+        "move_seconds": 0.4,
+        "events": [
+          {
+            "t": 4.2,
+            "previous": "TRACK",
+            "state": "SETTLE_LOST"
+          },
+          {
+            "t": 5.7,
+            "previous": "SETTLE_LOST",
+            "state": "HEAD_SEARCH"
+          },
+          {
+            "t": 11.44,
+            "previous": "HEAD_SEARCH",
+            "state": "ALIGN"
+          },
+          {
+            "t": 14.46,
+            "previous": "ALIGN",
+            "state": "TRACK"
+          }
+        ],
+        "reacquisitions": 1,
+        "final_internal_state": "TRACK",
+        "head_command_limit": 1.1,
+        "body_scan_time_limit": 6.0,
+        "max_abs_head_encoder": 1.288602963814934,
+        "max_abs_head_command": 1.100000023841858,
+        "head_search_body_commands_zero": true,
+        "body_search_forward_commands_zero": true
+      },
+      "search_source_sha256": "5dc12dd3940a07de1887fddc5ad8238d936602e87aff5974e071ca16b51ce56d",
+      "final_controller_replay": {
+        "command_replay_mismatches": [],
+        "lost_command_stop_pass": true,
+        "approach_success": true,
+        "fell": false,
+        "touched_ball": false
+      }
+    },
+    "search-behind": {
+      "mode": "ball",
+      "actuator_model": "XML position (no BAM)",
+      "seconds": 30.0,
+      "ball": [
+        0.8,
+        0.0
+      ],
+      "push_velocity": null,
+      "fell": false,
+      "stopped": false,
+      "final_distance": 1.1119617133995172,
+      "mean_final_speed": 0.00044643326593396765,
+      "max_tilt_deg": 6.799796802847219,
+      "final_position": [
+        0.31171003921318763,
+        0.023656727985976185
+      ],
+      "touched_ball": false,
+      "final_heading_error": 2.9660565784941495,
+      "script_sha256": "500f9302455ee75c8f8bdf689999cfee0782b2ef9937ec42fd8197492e68b754",
+      "runner_commit": "53b8971b61baf5b7f3c16d135dd7cac37623de4b",
+      "versions": {
+        "mujoco": "3.13.0",
+        "numpy": "2.2.6",
+        "onnxruntime": "1.23.2"
+      },
+      "policy_sha256": {
+        "alpha_walking.onnx": "e36332d383997d51401897734cd3e79cf5038406feddb18b4d57ecfb141daa6c",
+        "alpha_stand.onnx": "1569268713e40deea795dd2922dba50d3621e15a872855408b6b1b125b1c094b"
+      },
+      "success": false,
+      "control": "RGB magenta component horizontal offset and apparent diameter only",
+      "vision_source_sha256": "67eafb5bbfd8e077a35bf39ba9fe3eee5338626d6da08bb5a3d32464ba4cd61e",
+      "vision_events": [],
+      "image_thresholds": {
+        "stop_size": 0.17,
+        "resume_size": 0.14,
+        "dwell": 0.8
+      },
+      "lost_samples": 0,
+      "lost_commands_zero": true,
+      "blackout": null,
+      "perception_evaluation": {
+        "samples": 150,
+        "missed_visible_ball": 1,
+        "detection_without_visible_ball": 0,
+        "max_horizontal_error_px": 1.1676471408258209
+      },
+      "search": {
+        "scenario": "behind",
+        "move_seconds": 2.0,
+        "events": [
+          {
+            "t": 4.48,
+            "previous": "TRACK",
+            "state": "SETTLE_LOST"
+          },
+          {
+            "t": 5.98,
+            "previous": "SETTLE_LOST",
+            "state": "HEAD_SEARCH"
+          },
+          {
+            "t": 13.32,
+            "previous": "HEAD_SEARCH",
+            "state": "BODY_SEARCH"
+          },
+          {
+            "t": 19.32,
+            "previous": "BODY_SEARCH",
+            "state": "GAVE_UP"
+          }
+        ],
+        "reacquisitions": 0,
+        "final_internal_state": "GAVE_UP",
+        "head_command_limit": 1.1,
+        "body_scan_time_limit": 6.0,
+        "max_abs_head_encoder": 1.0689837061359397,
+        "max_abs_head_command": 1.100000023841858,
+        "head_search_body_commands_zero": true,
+        "body_search_forward_commands_zero": true
+      },
+      "search_source_sha256": "5dc12dd3940a07de1887fddc5ad8238d936602e87aff5974e071ca16b51ce56d",
+      "final_controller_replay": {
+        "command_replay_mismatches": [],
+        "lost_command_stop_pass": true,
+        "approach_success": false,
+        "fell": false,
+        "touched_ball": false
+      }
+    },
+    "search-occluder": {
+      "mode": "ball",
+      "actuator_model": "XML position (no BAM)",
+      "seconds": 26.0,
+      "ball": [
+        0.8,
+        0.0
+      ],
+      "push_velocity": null,
+      "fell": false,
+      "stopped": true,
+      "final_distance": 0.30140640106516414,
+      "mean_final_speed": 0.0004820677964926491,
+      "max_tilt_deg": 4.361419032273547,
+      "final_position": [
+        0.49905317892679973,
+        -0.01663819368169934
+      ],
+      "touched_ball": false,
+      "final_heading_error": -0.04058787423831487,
+      "script_sha256": "e62fc5c1355ffff82dfa0ef57c7271395ac7e43ba7ea7cec9990998fcd61b50d",
+      "runner_commit": "53b8971b61baf5b7f3c16d135dd7cac37623de4b",
+      "versions": {
+        "mujoco": "3.13.0",
+        "numpy": "2.2.6",
+        "onnxruntime": "1.23.2"
+      },
+      "policy_sha256": {
+        "alpha_walking.onnx": "e36332d383997d51401897734cd3e79cf5038406feddb18b4d57ecfb141daa6c",
+        "alpha_stand.onnx": "1569268713e40deea795dd2922dba50d3621e15a872855408b6b1b125b1c094b"
+      },
+      "success": true,
+      "control": "RGB magenta component horizontal offset and apparent diameter only",
+      "vision_source_sha256": "67eafb5bbfd8e077a35bf39ba9fe3eee5338626d6da08bb5a3d32464ba4cd61e",
+      "vision_events": [],
+      "image_thresholds": {
+        "stop_size": 0.17,
+        "resume_size": 0.14,
+        "dwell": 0.8
+      },
+      "lost_samples": 0,
+      "lost_commands_zero": true,
+      "blackout": null,
+      "perception_evaluation": {
+        "samples": 130,
+        "missed_visible_ball": 0,
+        "detection_without_visible_ball": 0,
+        "max_horizontal_error_px": 1.3280465111275959
+      },
+      "search": {
+        "scenario": "occluder",
+        "touched_occluder": false,
+        "move_seconds": 2.0,
+        "events": [
+          {
+            "t": 4.0,
+            "previous": "TRACK",
+            "state": "SETTLE_LOST"
+          },
+          {
+            "t": 5.5,
+            "previous": "SETTLE_LOST",
+            "state": "HEAD_SEARCH"
+          },
+          {
+            "t": 10.2,
+            "previous": "HEAD_SEARCH",
+            "state": "ALIGN"
+          },
+          {
+            "t": 10.88,
+            "previous": "ALIGN",
+            "state": "TRACK"
+          }
+        ],
+        "reacquisitions": 1,
+        "final_internal_state": "TRACK",
+        "head_command_limit": 1.1,
+        "body_scan_time_limit": 6.0,
+        "max_abs_head_encoder": 1.06609948412871,
+        "max_abs_head_command": 1.100000023841858,
+        "head_search_body_commands_zero": true,
+        "body_search_forward_commands_zero": true
+      },
+      "search_source_sha256": "c6b78f65be465019153cb00bd84d0424f20f5c6d65e4f9d9d62129bc3d91ea0f",
+      "final_controller_replay": {
+        "command_replay_mismatches": [],
+        "lost_command_stop_pass": true,
+        "approach_success": true,
+        "fell": false,
+        "touched_ball": false
+      }
+    }
+  }
+}
