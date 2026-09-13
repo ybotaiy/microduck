@@ -12,6 +12,39 @@ result is **PARTIAL**, not a general ball-chasing success or a rules-controller
 replacement. [VISUAL_CONTROLLER.md](VISUAL_CONTROLLER.md) contains evidence,
 model provenance, failure details and the three proposed next steps.
 
+## Completion contract for autonomous runs
+
+An honest partial result is a **checkpoint**, not an automatic completion. The
+requested outcome is measured generalization of the exported controller, so a
+single failed held-out behavior must trigger diagnosis and the preapproved
+recovery matrix below. The owner should not need to notice a short run or ask
+for work to resume.
+
+An autonomous run may finish early only when either (a) every success gate has
+passed, or (b) a hard blocker prevents further local progress after the
+remaining preapproved diagnostics and bounded correction attempts have been
+run. A failed candidate, a low validation metric, one divergent renderer path,
+or a publishable GIF is not a hard blocker. A hard-blocker report must name the
+reproducing command, the attempted recovery branches, the remaining external
+dependency, and why no further local experiment can resolve it.
+
+For visual ball chasing, the success gate is the exported model passing the
+frozen static grid, blackout stop/recovery, rear reacquisition, and a separate
+moving suite of at least ten previously unseen trajectories. Each moving case
+must pass both headless control and presentation recording, with no fall,
+contact, lost-frame motion, missed departure resume, or final-distance failure.
+The rules baseline must run under the same suite. A candidate that only passes
+one rendering mode is a diagnostic result, not a release candidate.
+
+When a gate fails, execute this bounded sequence before treating the result as
+partial: compare deterministic paired rollouts and observation/action traces;
+toggle the suspected presentation, perception and control paths one at a time;
+fix the isolated cause and add a regression; retrain only when the trace shows
+a model/data deficit; then rerun the complete frozen suite. Publish a partial
+checkpoint only when it is explicitly marked ongoing and includes the next
+queued branch. The final commit must include a coverage table showing every
+success gate, attempted recovery branch and its result.
+
 ## Decision to review
 
 Train visual approach, stop/resume and bounded search behavior above the unchanged shipped walking/standing policies. The learned controller uses camera-derived features and short observation/action history; the detector and gait remain existing components. This is actual fitted-model training, not renamed controller tuning, end-to-end pixel learning, or a new gait. The selected approach is imitation learning from the tested controller, followed by corrections on states visited by the learner. Matching the teacher reliably is a valid first learning result; superiority is a separate claim requiring evidence.
