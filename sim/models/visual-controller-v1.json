@@ -1,0 +1,11 @@
+{
+  "seed": 7,
+  "epochs": 1800,
+  "train_examples": 42176,
+  "validation_examples": 10544,
+  "train_move_accuracy": 0.9757919311523438,
+  "validation_move_accuracy": 0.9722116589546204,
+  "train_yaw_mse": 0.008496003225445747,
+  "validation_yaw_mse": 0.007997775450348854,
+  "output_schema": "move logit, raw yaw; command adapter applies sigmoid/tanh bounds"
+}

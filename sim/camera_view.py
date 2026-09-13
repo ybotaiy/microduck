@@ -51,7 +51,8 @@ class DualView:
         self.out = Path(out)
         self.rows = []
 
-    def render(self, data, camera, t, state, robot_frame=None, vision=False, search=False):
+    def render(self, data, camera, t, state, robot_frame=None, vision=False, search=False,
+               controller='rules'):
         self.renderer.update_scene(data, camera)
         third = self.renderer.render().copy()
         if robot_frame is None:
@@ -62,7 +63,8 @@ class DualView:
         cid = self.model.camera('robot_view').id
         self.rows.append(dict(t=t, position=data.cam_xpos[cid].tolist(),
                               rotation=data.cam_xmat[cid].tolist()))
-        return composite(third, robot, f'{"IMAGE CONTROL" if vision else "CAMERA VALIDATION"} | t={t:05.2f}s | {state}',
+        title = (f'{controller.upper()} IMAGE CONTROL' if vision else 'CAMERA VALIDATION')
+        return composite(third, robot, f'{title} | t={t:05.2f}s | {state}',
                          '1x speed | XML simulation | RGB target + robot proprioception | bounded search' if search else
                          '1x speed | XML simulation | RGB-only steering / size stop / lost stop' if vision else
                          '1x speed | XML simulation | magenta ball | steering uses simulator coordinates')

@@ -11,6 +11,8 @@ def check_run(directory):
     summary = json.loads((directory/'summary.json').read_text())
     rows = [json.loads(line) for line in (directory/'trajectory.jsonl').read_text().splitlines()]
     controller = VisionFollower()
+    if summary.get('vision_controller', 'rules') != 'rules':
+        raise ValueError('Command replay currently supports only the deterministic rules controller')
     controller.stop_size = summary['image_thresholds']['stop_size']
     controller.resume_size = summary['image_thresholds']['resume_size']
     search = VisualSearch() if summary.get("search") else None

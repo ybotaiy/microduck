@@ -24,6 +24,8 @@ from follow import FollowController, target_at, analyze_follow, KEYFRAMES
 import camera_view
 from vision_follow import VisionFollower, detect_ball
 from vision_search import VisualSearch
+from safety_guard import MotionGuard
+from learned_controller import LearnedVisionController
 
 
 def steer(x, y, yaw, bx, by, stopped):
@@ -48,6 +50,15 @@ def run(args):
         timings[key] = timings.get(key, 0.) + time.perf_counter()-started
         return result
     lab = args.lab.resolve()
+    # Earlier runs stored the two official policies in an ignored `policies/`
+    # directory.  The official runtime checkout also carries the identical
+    # pinned files, which makes a fresh local checkout usable without copying
+    # models into the public repository.
+    policy_dir = lab / 'policies'
+    if not (policy_dir / 'alpha_walking.onnx').is_file():
+        policy_dir = lab / 'microduck' / 'policies'
+    if not (policy_dir / 'alpha_walking.onnx').is_file():
+        raise FileNotFoundError('Expected alpha_walking.onnx in the local policies or runtime checkout')
     runner = lab / 'microduck_rl/scripts/infer_policy.py'
     spec = importlib.util.spec_from_file_location('official_infer', runner)
     module = importlib.util.module_from_spec(spec)
@@ -74,8 +85,8 @@ def run(args):
     quiet = io.StringIO()
     with contextlib.redirect_stdout(quiet):
         policy = module.PolicyInference(
-            model, data, walking_onnx_path=str(lab / 'policies/alpha_walking.onnx'),
-            standing_onnx_path=str(lab / 'policies/alpha_stand.onnx'),
+            model, data, walking_onnx_path=str(policy_dir / 'alpha_walking.onnx'),
+            standing_onnx_path=str(policy_dir / 'alpha_stand.onnx'),
             new_cmd_obs=True, use_projected_gravity=True)
         policy.set_vel_cmd(0, 0, 0)
     jid = model.joint('trunk_base_freejoint').id
@@ -101,8 +112,12 @@ def run(args):
     ball_bid = model.body(ball_body.name).id
     mocap_id = int(model.body_mocapid[ball_bid])
     follower = FollowController()
-    vision = VisionFollower()
+    vision = (LearnedVisionController(args.controller_model)
+              if args.vision_controller == 'learned' else VisionFollower())
     search = VisualSearch()
+    if args.vision_controller == 'learned':
+        search.follower = vision
+    guard = MotionGuard()
     turn = BoundedTurn(target=args.turn_angle, speed=args.turn_speed)
     head_qa = int(model.jnt_qposadr[model.joint('head_yaw').id])
     observation, frame_time, robot_frame = None, -math.inf, None
@@ -206,8 +221,14 @@ def run(args):
             if args.mode == 'push' and step == 150:
                 data.qvel[va:va+2] = [args.push, 0.0]
                 pushed = True
-            if fell and not args.vision:
-                state, vx, wz = 'FALL', 0.0, 0.0
+            # This guard applies to coordinate and RGB control alike.  A
+            # camera-control rollout must never keep walking after the same
+            # simulated fall condition that stops the coordinate controller.
+            stale_stream = bool(args.vision and t >= 2.0 and t-frame_time > .12)
+            vx, wz, guard_reason = guard.command(vx, wz, fell=fell,
+                                                  stale_camera=stale_stream)
+            if guard_reason:
+                state = 'FALL' if guard_reason == 'FALL' else guard_reason
             with contextlib.redirect_stdout(quiet):
                 policy.set_vel_cmd(vx, 0.0, wz)
             action = measure('onnx_inference',policy.infer)
@@ -240,7 +261,9 @@ def run(args):
                         draw.rectangle((0,32,800,64),fill=(15,22,32))
                         draw.text((14,34),f'SCRIPTED BALL: {target_state} | distance {distance:.3f}m | resumes {sum(e["event"]=="resume" for e in follower.events)} | NO VISION',fill='white')
                 if dual:
-                    frame = measure('presentation_render',lambda:dual.render(data,camera,t,state,robot_frame if args.vision else None,args.vision,args.search))
+                    frame = measure('presentation_render',lambda:dual.render(
+                        data, camera, t, state, robot_frame if args.vision else None,
+                        args.vision, args.search, args.vision_controller))
                 measure('video_encode_write',lambda:writer.append_data(np.array(frame)))
                 if step in (0, 150, 200, round(args.seconds*50)-2) or (args.mode=='follow' and step%200==0):
                     frame.save(args.out / f'frame-{step:04d}.png')
@@ -273,12 +296,13 @@ def run(args):
                    max_tilt_deg=max(r['tilt_deg'] for r in rows),
                    final_position=[rows[-1]['x'], rows[-1]['y']],
                    touched_ball=touched_ball,
+                   guard_reason=guard.reason,
                    final_heading_error=rows[-1]['heading_error'],
                    script_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                    runner_commit=subprocess.check_output(['git','-C',str(lab/'microduck_rl'),'rev-parse','HEAD'], text=True).strip(),
                    versions={'mujoco':mujoco.__version__, 'numpy':np.__version__, 'onnxruntime':module.ort.__version__},
                    policy_sha256={p.name:hashlib.sha256(p.read_bytes()).hexdigest()
-                                  for p in (lab/'policies').glob('*.onnx')})
+                                  for p in policy_dir.glob('*.onnx')})
     summary['success'] = bool(not fell and not touched_ball and
         (args.mode != 'ball' or (stopped and 0.18 <= summary['final_distance'] <= 0.28
           and summary['mean_final_speed'] < 0.01 and abs(summary['final_heading_error']) < 0.35)))
@@ -299,7 +323,11 @@ def run(args):
         summary['vision_source_sha256'] = hashlib.sha256((Path(__file__).parent/'vision_follow.py').read_bytes()).hexdigest()
         evaluated_follower = search.follower if args.search else vision
         summary['vision_events'] = evaluated_follower.events
-        summary['image_thresholds'] = {'stop_size':vision.stop_size,'resume_size':vision.resume_size,'dwell':vision.resume_dwell}
+        summary['image_thresholds'] = ({'stop_size':vision.stop_size,'resume_size':vision.resume_size,'dwell':vision.resume_dwell}
+                                       if args.vision_controller == 'rules' else None)
+        summary['vision_controller'] = args.vision_controller
+        if args.vision_controller == 'learned':
+            summary['controller_model_sha256'] = hashlib.sha256(Path(args.controller_model).read_bytes()).hexdigest()
         summary['lost_samples'] = sum(r['state']=='LOST' for r in controlled)
         summary['lost_commands_zero'] = all(r['vx_cmd']==0 and r['wz_cmd']==0 for r in controlled if r['state']=='LOST')
         summary['blackout'] = args.vision_blackout
@@ -359,6 +387,8 @@ if __name__ == '__main__':
     parser.add_argument('--search-move-seconds', type=float, default=2., help='Scripted target transition duration')
     parser.add_argument('--search-scenario', choices=['left','right','behind','occluder','repeat'])
     parser.add_argument('--vision', action='store_true', help='Control using only robot-view RGB observations')
+    parser.add_argument('--vision-controller', choices=['rules', 'learned'], default='rules')
+    parser.add_argument('--controller-model', type=Path, help='ONNX learned visual controller; required for --vision-controller learned')
     parser.add_argument('--vision-blackout', type=float, nargs=2, help='Inject black sensor frames during this time interval')
     parser.add_argument('--dual-view', action='store_true', help='Record head-mounted and third-person views together')
     parser.add_argument('--camera-check', action='store_true', help='Evaluate camera poses before rollout; requires --dual-view')
@@ -372,6 +402,10 @@ if __name__ == '__main__':
         parser.error('--search-scenario requires --search')
     if args.vision and args.mode not in ('ball','follow'):
         parser.error('--vision requires ball/follow mode')
+    if args.vision_controller == 'learned' and not args.vision:
+        parser.error('--vision-controller learned requires --vision')
+    if args.vision_controller == 'learned' and not args.controller_model:
+        parser.error('--controller-model is required for --vision-controller learned')
     if args.vision_blackout and not args.vision:
         parser.error('--vision-blackout requires --vision')
     if args.camera_check and not args.dual_view:

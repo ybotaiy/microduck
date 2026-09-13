@@ -6,6 +6,10 @@ A personal experiment in an expressive robot pet, developed before the Microduck
 
 Start with [PROJECT.md](PROJECT.md) for the project context, decisions, references, current state, and prioritized next steps.
 
+**Overnight visual-behavior run:** [plan and execution outcome](ROADMAP.md) above the existing gait. It completed locally; this release carries the privacy-reviewed GitHub delivery.
+
+**Latest result:** [learned visual controller, September 12](VISUAL_CONTROLLER.md) is a partial result. It passes a 12-case held-out static grid, blackout recovery and rear search in simulation, but recorded dynamic following remains unreliable.
+
 Initial experiment: reuse an existing policy in simulation, observe its response to a controlled push, then turn toward a stationary ball, approach, and stop before it. The first version reads the ball position directly from simulation; it does not train a gait, use vision, or kick. See `PROJECT.md` for verification status and next steps.
 
 The next experiment is now implemented: [dynamic following](DYNAMIC_FOLLOW.md) of a slowly moving, pausing, then departing scripted ball, with stop/resume hysteresis and ground-truth coordinates. No camera is used.
