@@ -1,6 +1,20 @@
 # Microduck roadmap and overnight execution plan
 
-Updated September 12, 2026. **Status: PARTIAL — training, review and privacy-reviewed publication closeout completed.**
+Updated September 13, 2026. **Status: PARTIAL — published v1; local follow-up incomplete. A revised long run is proposed.**
+
+## Current proposal — September 13
+
+[Evidence audit and measured 4½-hour plan](RUN_REVIEW_2026-09-13.md) supersedes
+the earlier duration estimates and stopping wording below for the next run.
+Target 4½ hours, cap five hours, with reserved publication time. A failed
+candidate does not end work while useful authorized recovery remains; reaching
+the deadline can end with an explicitly partial, privacy-reviewed release.
+
+Both models still fail one moving case across the two rendering modes. The
+audit found wrong custom-schedule scoring, added boundary examples excluded
+from training, and reused/edited test cases. Repair these before fitting; use
+new held-out episodes, fault/regression tests, reviewed GIFs and verified GitHub
+delivery. This is a proposal. The older execution plan below is historical.
 
 ## Execution outcome — September 12
 

@@ -1,12 +1,25 @@
 # MicroDuck pet project: context, decisions, and next steps
 
-Last updated: September 12, 2026.
+Last updated: September 13, 2026.
 
 Status: public repository, Apache-2.0. CPU simulation includes baseline standing, a controlled push, three stationary-ball targets, and a 42-second scripted moving-ball follow/stop/resume experiment with XML position actuators. BAM dynamics and hardware remain untested. Keep private context outside this repository.
 
 Visual progress report: [First simulation experiments](docs/2026-09-09-simulation.md).
 
-## Resume here — current scope (September 12, 2026)
+## Resume here — current scope (September 13, 2026)
+
+**Current next action:** review the [September 13 evidence audit and measured
+long-run proposal](RUN_REVIEW_2026-09-13.md). Local v1 moving results are 10/10
+camera-only and 9/10 recorded; local candidate v2 is 9/10 and 10/10. These are
+development results, not fresh final tests. Incorrect custom-schedule scoring
+and a split excluding all appended boundary examples invalidate earlier causal
+explanations. Proposed next run: repair evaluator/splits, diagnose matched
+render/control traces, train on separate development episodes, complete fresh
+acceptance and media/privacy review, then verify GitHub delivery. Target 4½
+hours, cap five hours. No new run was started for this audit.
+
+The dated September 12 state below is retained as history; its next-action
+language is superseded by the proposal above.
 
 **Overnight visual-controller result: PARTIAL.** The approved local-only run trained and exported a compact visual controller above the unchanged shipped gait. It passed the frozen 12-case static grid (rules 12/12, learned 12/12), a recorded blackout/recovery case and a recorded rear-search case. A recorded dynamic-follow run repeatedly finished too far from the target, so dynamic following is not accepted and the rules controller remains the operational baseline. See [VISUAL_CONTROLLER.md](VISUAL_CONTROLLER.md) for model provenance, GIFs, measured results, failures and next steps. No cloud API, paid compute, hardware, account change or social publication was used.
 
