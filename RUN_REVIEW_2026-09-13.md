@@ -1,5 +1,7 @@
 # Evidence audit and proposed long run
 
+**Scope update, September 13:** audit findings and timing measurements remain relevant. The replacement-training long run below is superseded by the [capability roadmap](ROADMAP.md); it is not the current execution recommendation.
+
 September 13, 2026. **Proposal only; no new training or rollouts started during this audit.**
 This review supersedes earlier duration estimates and completion wording for the next run.
 

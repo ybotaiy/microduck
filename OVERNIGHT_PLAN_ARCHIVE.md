@@ -1,0 +1,162 @@
+# Historical visual-controller execution plans
+
+Archived September 13, 2026. Superseded by [the current capability roadmap](ROADMAP.md). These plans and thresholds are historical records, not authorization or the current work queue.
+
+# Microduck roadmap and overnight execution plan
+
+Updated September 13, 2026. **Status: PARTIAL — published v1; local follow-up incomplete. A revised long run is proposed.**
+
+## Current proposal — September 13
+
+[Evidence audit and measured 4½-hour plan](RUN_REVIEW_2026-09-13.md) supersedes
+the earlier duration estimates and stopping wording below for the next run.
+Target 4½ hours, cap five hours, with reserved publication time. A failed
+candidate does not end work while useful authorized recovery remains; reaching
+the deadline can end with an explicitly partial, privacy-reviewed release.
+
+Both models still fail one moving case across the two rendering modes. The
+audit found wrong custom-schedule scoring, added boundary examples excluded
+from training, and reused/edited test cases. Repair these before fitting; use
+new held-out episodes, fault/regression tests, reviewed GIFs and verified GitHub
+delivery. This is a proposal. The older execution plan below is historical.
+
+## Execution outcome — September 12
+
+The local-only visual-controller run is complete. The controller was trained,
+exported and evaluated against the existing rules controller. It matched rules
+at 12/12 in a frozen static grid and passed recorded static, blackout and rear
+search cases. It did not reliably complete recorded dynamic following, so the
+result is **PARTIAL**, not a general ball-chasing success or a rules-controller
+replacement. [VISUAL_CONTROLLER.md](VISUAL_CONTROLLER.md) contains evidence,
+model provenance, failure details and the three proposed next steps.
+
+## Completion contract for autonomous runs
+
+An honest partial result is a **checkpoint**, not an automatic completion. The
+requested outcome is measured generalization of the exported controller, so a
+single failed held-out behavior must trigger diagnosis and the preapproved
+recovery matrix below. The owner should not need to notice a short run or ask
+for work to resume.
+
+An autonomous run may finish early only when either (a) every success gate has
+passed, or (b) a hard blocker prevents further local progress after the
+remaining preapproved diagnostics and bounded correction attempts have been
+run. A failed candidate, a low validation metric, one divergent renderer path,
+or a publishable GIF is not a hard blocker. A hard-blocker report must name the
+reproducing command, the attempted recovery branches, the remaining external
+dependency, and why no further local experiment can resolve it.
+
+For visual ball chasing, the success gate is the exported model passing the
+frozen static grid, blackout stop/recovery, rear reacquisition, and a separate
+moving suite of at least ten previously unseen trajectories. Each moving case
+must pass both headless control and presentation recording, with no fall,
+contact, lost-frame motion, missed departure resume, or final-distance failure.
+The rules baseline must run under the same suite. A candidate that only passes
+one rendering mode is a diagnostic result, not a release candidate.
+
+When a gate fails, execute this bounded sequence before treating the result as
+partial: compare deterministic paired rollouts and observation/action traces;
+toggle the suspected presentation, perception and control paths one at a time;
+fix the isolated cause and add a regression; retrain only when the trace shows
+a model/data deficit; then rerun the complete frozen suite. Publish a partial
+checkpoint only when it is explicitly marked ongoing and includes the next
+queued branch. The final commit must include a coverage table showing every
+success gate, attempted recovery branch and its result.
+
+## Decision to review
+
+Train visual approach, stop/resume and bounded search behavior above the unchanged shipped walking/standing policies. The learned controller uses camera-derived features and short observation/action history; the detector and gait remain existing components. This is actual fitted-model training, not renamed controller tuning, end-to-end pixel learning, or a new gait. The selected approach is imitation learning from the tested controller, followed by corrections on states visited by the learner. Matching the teacher reliably is a valid first learning result; superiority is a separate claim requiring evidence.
+
+Approval authorizes one local run targeting **eight hours from execution start**, including implementation, isolated dependency setup, data generation, training, diagnosis and bounded retries, evaluation, final GIFs, results review, roadmap updates, privacy review, and commit/push to the existing public GitHub repository. **One approval covers the entire workflow through privacy-reviewed commits and verified GitHub upload. Do not request intermediate review, parameter choices, GIF approval, commit approval or push approval.** Resolve routine decisions and failure branches autonomously. No paid compute/API, hardware deployment, account/visibility changes or social publishing are included. Stop early when the complete acceptance and closeout gates pass; reserve the final two hours for verification and delivery. Eight hours is a proposed execution target, not a runtime prediction or guarantee of learning success. Stop new experimentation at hour six; if necessary, continue final verification, privacy cleanup and delivery beyond hour eight rather than hand unfinished publishing back to the owner.
+
+## What success looks like
+
+In a simulated flat-floor scene, the duck sees the colored ball through its robot camera, turns toward it, walks closer and stops at a small gap. When the ball moves slowly, it follows; when the ball pauses, it stops; when the ball moves away again, it resumes. If the ball goes to a side or behind it, the duck stops forward movement, looks around with its head, makes a bounded body turn if needed, then approaches and stops after reacquiring it. If sensing fails or the ball cannot be found within the search limit, it remains stopped instead of wandering indefinitely.
+
+The existing rules controller has already demonstrated these behaviors in selected scenarios. The proposed advance is a trained, reloadable visual decision model that reproduces the repertoire across unseen starting positions and trajectories, with measured reliability and failures. The detector and walking gait remain existing components. Imitating the rules does not by itself add a new visible skill or prove improved performance; report the baseline comparison plainly. The target is at least 45 of 50 held-out episodes plus every fault-handling check in the acceptance contract. This is simulation only, not proof of obstacle avoidance, stair/edge safety, general object recognition, kicking or real-hardware readiness.
+
+Deliver four reviewed GIFs showing approach/stop, moving follow/stop/resume, search/reacquisition and fault-stop/limitations, alongside the trained model, test results, updated roadmap and verified GitHub commits. Success is the measured behavior of the exported model, not merely completion of training.
+
+## Binding cost, privacy and safety constraints
+
+- **No paid APIs, purchases, rentals, subscriptions, metered cloud jobs, paid storage or other newly incurred service charges.** Training, inference, evaluation and rendering run locally. Do not invoke hosted model APIs, including trials or free tiers that could overflow into billing. Do not enable overages, add payment methods or consume purchased API credits. If a dependency or service cannot be verified as free for the intended use, omit it and use a local alternative; no budget approval request is needed.
+- Download only required public dependencies/models using ordinary free access. Inspect repository workflows and relevant upload limits before publishing: do not trigger billable GitHub Actions, LFS, storage or deployment jobs. Ordinary Git publication is permitted only through a verified non-chargeable route. Existing application/account billing and local machine operating costs are not controlled or certified by this project plan; do not promise those are zero.
+- Privacy restrictions apply throughout execution as well as at publication. Do not send private files, conversations, personal context or credentials to external inference, datasets, logs or public artifacts. Access credentials only through the existing authentication mechanism; never print or embed them. Audit and sanitize every outgoing commit and media/model metadata as required below.
+- Autonomous execution does not override applicable safety, security, privacy or tool-permission rules. Never bypass a safeguard to meet the overnight deadline or the upload goal. Complete all authorized no-cost work and use the documented recovery paths; label an unavoidable external block honestly.
+
+## Review findings
+
+- Latest fetched project main is `a921c1b9ec9b381c2b9c8e1fb805570fda0dbda7`. It contains demonstrated image-based following, bounded rear/side search and GIFs, but no newly trained visual controller. See [bounded search](BOUNDED_SEARCH.md).
+- Seventeen current unit tests passed during this planning review. No physical rollouts were rerun. Available local simulation dependencies and the external runner revision differ from the published reproduction pins; a fresh isolated reproduction environment is the first execution gate. Preserve existing external checkouts and runs.
+- Vision mode currently bypasses the fall-triggered zero-command override. Correct and test a common motion guard before collecting learner-controlled trajectories. Zero commanded speed does not itself establish physical stopping.
+- Search currently consumes simulator body pose as an odometry proxy. Keep this assumption explicit and outside the learned target-observation interface; perturb it in stress tests. Obstacle/drop-off sensing and hardware calibration remain unvalidated. The overnight scope uses a clear, flat simulated floor and temporary occlusion, not obstacle navigation.
+- `sim/check_vision_run.py` raises for replay/lost-command errors but only reports approach success, falls and ball contacts. Add an acceptance runner that actually fails on every behavioral criterion; successful replay alone cannot certify a rollout.
+
+## Execution sequence
+
+Time allocations are planning targets and may shift within the total budget; the final two hours remain reserved.
+
+| Stage | Work and evidence | Failure branch |
+| --- | --- | --- |
+| 1. Reproduce and protect, about 45 min | Record source/model hashes, use pinned runner/model/dependencies in a separate ignored environment, rerun the 17 tests and coordinate/visual baselines. Add a final common guard for manual stop, invalid/stale sensing, nonfinite output, fall and bounded search; verify command timing and physical settling. Benchmark RGB-sensing throughput on this host. | Diagnose dependency/model drift without overwriting another checkout. If the physical baseline or renderer cannot be made trustworthy, preserve the failure evidence and close out as blocked; do not train against an unexplained broken baseline. |
+| 2. Dataset and evaluator, about 60 min | Implement a reusable environment/controller boundary and a scenario manifest with disjoint training, validation and final-test episode seeds. Generate successful teacher rollouts across front/side/rear targets, pauses/departures and recoverable loss. Balance motion, stop and search labels. Establish teacher and stop-only/untrained baselines under identical guards. Freeze metrics before fitting. | Bad labels or teacher failures require a focused training/validation scenario fix. Retain failures; do not label a failed approach as a successful demonstration or filter failures out of the final suite. |
+| 3. Train progressively, about 150 min | Fit a small history-aware controller: first visible-ball approach/stop, then moving stop/resume, then head/body search and reacquisition. Train at least three initialization seeds; save configurations, split hashes, losses and checkpoints. Add up to three dataset-aggregation rounds using teacher labels at learner-visited states. Evaluate deterministic checkpoints in closed-loop simulation after each stage. | Diagnose missing observations, class imbalance, drift and action saturation. Fix one cause per retry. Prefer more useful demonstrations/history to a large algorithm rewrite. No switch to new-gait PPO or paid GPU work. |
+| 4. Validate and fix, about 105 min | Select by validation outcomes, replay commands from allowed observations, test export parity and sensor failures, and run targeted regressions. Finish the best candidate or retain the best verified partial model. | No progress over two correction rounds ends that branch; move to another scoped correction if time remains. At hour six freeze the candidate and stop new training/features. Never relax success thresholds to make a run pass. |
+| 5. Final evaluation and media, about 75 min | Evaluate the frozen exported model and baselines on held-out episodes; run full legacy regressions. Export and visually inspect representative GIFs from independently checked recorded runs. Include a failure/limit clip where applicable. | A final-test failure stays a reported failure. Do not train on that test set and relabel it held-out. If a repair is essential, retain the first result and use a predeclared reserve test set within the budget; otherwise deliver a partial result. |
+| 6. Review and publish, about 45 min | Audit code, metrics, model provenance, claims and GIFs; write findings and prioritized next steps into this roadmap and PROJECT.md; scan/review the exact publication payload; commit/push and verify remote content. | Omit any private artifact and regenerate a sanitized public summary. Retry transient publishing/network failures automatically with bounded backoff and recheck remote state before each retry. Resolve ordinary Git conflicts or use the approved branch/PR route. Retain the exact local commit and recovery state if an external blocker persists; never substitute retry instructions for an upload that can still be completed autonomously. |
+
+## Learning and control boundary
+
+- The trained model, running initially at 10 Hz, produces bounded forward/yaw/head commands or bounded action choices whose executor is documented. Existing gait inference stays at 50 Hz and camera sensing at the existing cadence. Freeze the action interface before collection. Do not silently replace learned decisions with the teacher at evaluation time.
+- Inputs: RGB-derived ball bearing/size/visibility, frame age, head encoder, recent observations, past executed actions and elapsed local durations. Use finite history or a small recurrent state for search; no teacher state labels as inference inputs. Save feature normalization with the model.
+- No ball/world coordinates, target schedule, segmentation IDs, future frames, privileged distances or scene IDs enter the learned model or its teacher's target decisions. Simulator truth is allowed for scenario generation and independent outcome scoring. Existing odometry-proxy travel guards remain a separately disclosed limitation, not a claim of wholly image-only hardware control.
+- Guard priority is independent of learned decisions. Manual stop/fall/invalid model output latch a stopped state; stale or unavailable camera/proprioception forbids body movement. A fresh camera with an absent target may permit bounded head search and zero-forward body scanning within the existing turn limits. Record requested action, executed action and veto reason. Camera failure and target disappearance are different cases.
+- Start with supervised behavior cloning; use dataset aggregation if closed-loop drift appears. DAgger adds teacher labels for observations visited by the learner, addressing the mismatch between demonstration and learner trajectories. See the [official imitation documentation](https://imitation.readthedocs.io/en/latest/algorithms/dagger.html). A small local implementation is acceptable; importing the full library is optional. Record teacher revisions, checkpoint hashes and actual optimizer updates so training is auditable.
+- Export a separate visual-controller model, preferably ONNX with preprocessing included or versioned alongside it. Keep the shipped 61-observation/14-action gait files and contract intact. Verify fresh-process load and deterministic output parity. Compact model weights plus schema/config/hash are public deliverables; large raw trajectories, virtualenvs and external repositories remain ignored.
+
+## Acceptance contract
+
+All numbers below are **proposed test requirements**, not measured results or real-world safety limits. Freeze scenario ranges and evaluator configuration before training; report any pre-training feasibility change explicitly. A smaller completed subskill may be delivered but cannot be called the full success below.
+
+1. **Held-out behavior:** 50 final episodes, ten each for (a) static front/side approach, (b) slow moving/pausing/resuming targets, (c) rear search, (d) repeated side reacquisition, (e) recoverable loss/temporary occlusion. Use novel episode seeds and target trajectories, not random frame splits from training clips. Target at least 45/50 full episode passes and at least 8/10 in every family. Report counts, denominators and uncertainty; this remains a small simulation benchmark.
+2. **Physical outcome:** each required approach ends within 0.20–0.40 m trunk-to-ball-center distance, with final-second mean planar speed below 0.01 m/s, no ball/occluder contact and no detected fall. Every scheduled pause must settle and every departure must resume; acquisition is followed by approach and stop. A controller that simply stands cannot pass. Use maximum episode durations of 40 s for single approach/search, 60 s for moving/recoverable loss, and 100 s for repeated search; score all events, not just the final frame.
+3. **Safety and failure handling:** all ten additional fault episodes must pass (two each: manual stop, stale camera, missing/nonfinite observations or outputs, injected fall, permanent target loss). Guards command zero by the next 50 Hz control tick after detecting a fault. For upright stop tests, require speed below 0.01 m/s within one second and travel at most 0.10 m after the stop trigger. Injected falls require latched zero commands and termination, not an impossible standing-recovery claim. Permanent target loss must reach a bounded latched timeout; no blind forward search. No detected fall/contact in ordinary final behavior episodes, including unsuccessful ones.
+4. **Training attribution:** compare the exported learned model against the rules teacher, always-stop and the same architecture before training, with identical guards and paired episode seeds. Require at least ten more successes than the untrained model on the 50 final episodes, and no more than two fewer than the teacher. Log guard activation and teacher fallback counts; teacher fallback must be zero in learned evaluation. If it only matches the teacher, say it learned/distilled the behavior; do not claim new capability or better control.
+5. **Robustness and honesty:** include modest initial-pose, distance, lighting and gait-phase variation in the frozen core suite. Separately stress latency, dropped frames, altered ball size, same-color distractors, persistent occlusion and noisy odometry. Define ranges from baseline feasibility before training. Distinguish core acceptance failures from out-of-envelope stress results; do not hide failures in aggregate reward. Identity ambiguity and obstacles remain explicit limitations.
+6. **Regression and export:** all original unit tests plus meaningful new boundary/guard/evaluator tests pass. Reproduce standing, push, static coordinate targets, dynamic following and current visual/search cases under pinned versions. Preserve historical result files; keep new output separate. Explain any changed trace instead of silently replacing a baseline. The final exported model must be loaded and evaluated in a fresh process; training loss/checkpoint completion alone is insufficient.
+7. **Visual evidence:** produce four compact, consistently captioned GIFs: approach/stop; moving follow/stop/resume; rear or repeated search; fault-stop or an informative limitation. Show synchronized robot and external views where useful, simulation time, trained-controller identity and a clear simulation label. Use a passing recorded run, not just a numerical run with similar parameters. Inspect full clips/contact sheets; retain numerical evidence for all tested events when a GIF is excerpted. Generate presentation media at final verification, not after every parameter update.
+
+## Autonomous operation and recovery
+
+At execution start record approval, start time, deadline, current commit and the next stage in an ignored run-state file. Persist commands, configs, RNG states/checkpoints, stage outcomes, artifact paths and next action after every meaningful stage. Use deterministic phase entry points and an acceptance command with a nonzero exit status on failure, rather than a shell chain that continues after failed tests. Record wall time by phase; do not call residual time model reasoning.
+
+Keep the active task supervising the run and use a bounded process-scoped sleep inhibitor where supported; do not change persistent machine settings. Report progress at stage transitions without asking for routine decisions. If interrupted, resume from verified checkpoints and remaining budget, never start duplicate training or publish twice. This plan alone does not create a scheduler or guarantee continuation if the app/session is terminated. Before long training, verify the available write, renderer, Git authentication and publication capabilities without exposing credentials or creating a test public payload. Use the approval already given for scoped tool permission checks; do not invent another user approval gate. Recover routine process failures automatically, skip unavailable paid/hardware branches and continue the authorized local workflow. The experimentation deadline triggers closeout, not a request for instructions. A session termination or an externally enforced permission/authentication/service block may prevent completion; persist exact recovery state and report an incomplete delivery only after available authorized recovery paths are exhausted. Do not bypass security controls or claim an upload succeeded when it did not.
+
+## Mandatory closeout, even for a partial result
+
+**The run is complete only after the outgoing commits pass privacy review and their upload is verified on GitHub.** Training completion, a local commit, generated GIFs or an attempted push alone are not completion. The owner does not perform the privacy audit or the upload; the executing agent owns both. A partial training result still follows the full publication workflow.
+
+- Write a dated public report with the exact final model/config/data-split/source hashes, reproduction and evaluation commands, per-scenario counts, baseline comparison, interventions, training history, failures and runtime. Clearly label **PASS**, **PARTIAL**, or **BLOCKED**. Add only actually observed claims.
+- Update the current section of PROJECT.md and this roadmap: completed work, evidence links, what was learned, remaining failures, and the next three proposed experiments ranked by expected value and dependency. Do not auto-execute the new roadmap. Keep personal context solely in the private KB and update its project/status pointers separately.
+- Audit the exact candidate files and full outgoing commit range. Scan text, configs, logs, notebook/model metadata, filenames, Git author/committer metadata and media captions for credentials, personal/household content, transcripts, private KB excerpts, usernames in machine paths and local system details. Use existing public-safe Git identity or repository-scoped GitHub noreply metadata. Inspect every GIF visually and check that embedded metadata is public-safe. An automated text scan alone is insufficient. Do not copy the KB or ignored dependency/run trees into the public repo.
+- If a privacy issue is found, remove or sanitize it autonomously, regenerate affected artifacts and repeat the audit. Check every outgoing commit, including messages and metadata; removing private content only in a later commit does not remove it from history. Rebuild only unpublished task-owned commits when needed, preserving unrelated work and never rewriting published history. Publish only project code/tests, sanitized configs/results, compact learned weights and selected GIFs. Stage an explicit file allowlist; inspect the staged diff and file list, run checks, then commit. Preserve third-party attribution and license requirements. Keep raw bulky training data local, with reproducible generators and split hashes in the report.
+- Default delivery: fast-forward the existing `main` after re-fetching and checking for concurrent work; never force-push. If main has conflicting concurrent work or branch protection, publish a `codex/overnight-visual-behavior` branch and draft PR with reviewed results rather than overwrite changes. This approval covers either delivery route, including honest partial results.
+- Verify the remote branch SHA equals the delivered local commit and that report, model and GIF paths resolve remotely; verify asset hashes where possible. The morning handoff includes the verdict, learned behavior demonstrated, comparison counts, visible GIFs, GitHub commit/report links, unresolved limits and next proposed steps. If publication cannot be verified, explicitly report local completion and upload status separately.
+
+---
+
+## Longer-term roadmap
+
+The stages below remain proposed beyond the bounded overnight scope. Approval of the overnight run does not authorize these later stages. The goal is coherent pet-like interaction, not increasingly advanced stunts. Use one compact plan per authorized sequence, replan only when evidence invalidates assumptions, time the phases, and export presentation media only when useful.
+
+| Proposed step and dependency | Acceptance evidence | Failure branch |
+| --- | --- | --- |
+| 1. Preserve the current foundation | Bounded turning/search, action outcomes, baselines and representative media remain reproducible. | Stop regression and resolve it before adding behaviors. |
+| 2. Characterize sensing and actions, after foundation | Measure camera blind spots, observable obstacle/edge distance, stopping margin, action completion/failure/timeouts, and interruption behavior. | Mark unobservable or unreliable cases unsupported; do not infer safety from RGB alone. |
+| 3. Independent motion veto, after measured sensing | In known simulated layouts with realistic sensors, veto/stop on obstacles, edges, stale/invalid sensors or uncertainty. Ground truth is evaluator-only. | Stop on insufficient evidence; add sensing or reduce the operating envelope. |
+| 4. Local detour/replan, after veto tests | Navigate simple known safe terrain; test dynamic obstacles and simulated people/pets, with blocked-path timeout. | Wait or stop; do not indefinitely push toward a blocked target. |
+| 5. Coherent interaction, after safe actions | Explicit rules baseline for attention, waiting, following, disengagement and user stop; action feedback prevents overlapping or unfinished behaviors. | Return to a neutral stopped state; do not interpret attention as enjoyment. |
+| 6. Train only measured missing skills | Establish a specific low-level deficit and compare a trained skill against the existing policy and a trivial baseline. | Keep existing skills; no training merely to make demonstrations more elaborate. |
+| 7. Staged hardware and participant evaluation | Floor-level supervised trials, explicit manual stop, bounded speed/contact, then participant feedback. Preserve the simulation/hardware gap. | Stop and reassess any unsupported sensor/action assumption. |
+
+Across stages, propose repeated seeds/layouts, lighting and same-color distractors, sensor latency/failure, stopping distances, camera blind spots, action interruption, speed/contact limits and manual stop. Passing one deterministic simulation is not permission to skip these checks. Keep participant identities and private context outside this public repository.

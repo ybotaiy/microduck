@@ -6,7 +6,7 @@ A personal experiment in an expressive robot pet, developed before the Microduck
 
 Start with [PROJECT.md](PROJECT.md) for the project context, decisions, references, current state, and prioritized next steps.
 
-**Overnight visual-behavior run:** [plan and execution outcome](ROADMAP.md) above the existing gait. It completed locally; this release carries the privacy-reviewed GitHub delivery.
+**Current direction:** [capability roadmap](ROADMAP.md): preserve working rules-based pursuit, then propose obstacle stopping and simple detours. The earlier replacement-model training plan is archived; obstacle avoidance is not yet implemented.
 
 **Latest result:** [learned visual controller, September 12](VISUAL_CONTROLLER.md) is a partial result. It passes a 12-case held-out static grid, blackout recovery and rear search in simulation, but recorded dynamic following remains unreliable.
 

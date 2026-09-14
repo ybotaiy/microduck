@@ -8,45 +8,19 @@ Visual progress report: [First simulation experiments](docs/2026-09-09-simulatio
 
 ## Resume here — current scope (September 13, 2026)
 
-**Current next action:** review the [September 13 evidence audit and measured
-long-run proposal](RUN_REVIEW_2026-09-13.md). Local v1 moving results are 10/10
-camera-only and 9/10 recorded; local candidate v2 is 9/10 and 10/10. These are
-development results, not fresh final tests. Incorrect custom-schedule scoring
-and a split excluding all appended boundary examples invalidate earlier causal
-explanations. Proposed next run: repair evaluator/splits, diagnose matched
-render/control traces, train on separate development episodes, complete fresh
-acceptance and media/privacy review, then verify GitHub delivery. Target 4½
-hours, cap five hours. No new run was started for this audit.
+**Current next action:** review the [overall capability roadmap](ROADMAP.md). Keep the working gait and rules-based visual follower. The proposed replacement-model long run is set aside: it has not demonstrated an added capability. The recommended next feature is obstacle-aware ball pursuit in simulation, staged as obstacle sensing/stop first, then a simple bounded detour and reacquisition. This review authorizes documentation only; implementation needs a concrete approved run plan.
 
-The dated September 12 state below is retained as history; its next-action
-language is superseded by the proposal above.
+**Verified state:** standing, controlled push recovery, coordinate and visual ball following, and bounded rear/side search have recorded simulation evidence. Temporary occlusion recovery waits for the occluder to be removed; it is not obstacle avoidance. The camera and XML actuator physics are idealized. No obstacle/drop-off protection, BAM validation or hardware success is established.
 
-**Overnight visual-controller result: PARTIAL.** The approved local-only run trained and exported a compact visual controller above the unchanged shipped gait. It passed the frozen 12-case static grid (rules 12/12, learned 12/12), a recorded blackout/recovery case and a recorded rear-search case. A recorded dynamic-follow run repeatedly finished too far from the target, so dynamic following is not accepted and the rules controller remains the operational baseline. See [VISUAL_CONTROLLER.md](VISUAL_CONTROLLER.md) for model provenance, GIFs, measured results, failures and next steps. No cloud API, paid compute, hardware, account change or social publication was used.
+**Learning experiment:** published v1 is PARTIAL; rules remain the operational baseline. The static comparison passed 12/12 for each controller, but recorded moving behavior remained unreliable. Local development results are v1 10/10 camera-only and 9/10 recorded, and v2 9/10 and 10/10. These are not fresh held-out tests or a demonstrated improvement. The [September 13 audit](RUN_REVIEW_2026-09-13.md) found schedule-scoring errors, appended boundary examples excluded from training, reused tests and a mismatched diagnostic comparison. Preserve this evidence and unfinished local implementation; no further fitting is a prerequisite for the new roadmap.
 
-**Current next action:** keep the rules controller as the operational baseline, then isolate the recorded dynamic-follow divergence before further fitting. The completed [overnight visual-behavior run](ROADMAP.md#execution-outcome--september-12) trained visual approach/stop/search above the existing gait, produced reviewed GIF evidence and made no paid API, cloud, hardware or account changes. This release completes the privacy-reviewed publication closeout. The training scope supersedes the earlier blanket deferral only for this visual-controller experiment; new gait training and hardware remain deferred.
+**Planning principle:** preserve working simple behavior. Additional complexity must address a concrete useful gap; evaluation on unseen scenarios does not imply that training is necessary. The next visible gain should be negotiating a supported obstacle layout, not relearning clear-floor chase. Later coherent interaction and hardware transfer are separate milestones.
 
-**Cost/privacy constraints and expected outcome:** all training/inference/rendering stays local; no paid API, cloud job, purchase, credit consumption or billable publishing side effect is authorized. Verify a free publication path and keep private data out of all public content and external services. Autonomy remains subject to safety/security rules. Success means a trained visual model can approach/stop, follow/pause/resume and search/reacquire a simulated ball across unseen cases; these actions already exist in the rules baseline, so training alone is not a new-skill claim. See [the observable outcome and binding constraints](ROADMAP.md#what-success-looks-like).
+**Constraints:** local computation only, no paid APIs or newly billable services, no private content in public artifacts, and no hardware work without its own scope. Approved runs include autonomous results review, roadmap update, privacy inspection and verified GitHub delivery. See the [current run and delivery contract](ROADMAP.md#autonomous-execution-and-delivery-contract).
 
-**Planning review:** latest GitHub main was pulled and all 17 unit tests pass in the available environment. Published simulation dependencies/runner pins differ from this checkout's external environment; reproduction is required before new experiments. The review also found the documented vision fall-override gap and an evaluator that does not fail on all reported behavioral failures. Both are explicit first-stage fixes. Current verified results below remain historical evidence; this review ran no new simulation.
+**Evidence references:** [initial simulation](docs/2026-09-09-simulation.md), [bounded search](BOUNDED_SEARCH.md), [partial learned controller](VISUAL_CONTROLLER.md), [hardware signal research](HARDWARE_SIGNALS.md). Hardware specifications in that research are dated and provisional, not measurements of a delivered robot. External dependencies remain ignored and separate; fresh reproduction must check their versions.
 
-Hardware signal research completed locally on September 12: see [HARDWARE_SIGNALS.md](HARDWARE_SIGNALS.md). Advertised camera + 8×8 ToF + body/head IMUs are supported by alpha runtime interfaces, but final optics/range and delivered components remain provisional. Contact odometry is a flat-ground estimate, not measured foot contact; existing virtual optics and simulator pose are not hardware calibration. Obstacle warning is investigable; drop-off warning requires ground coverage, validity and stopping-margin measurements. The document proposes a minimal sensing validation only; no new implementation or hardware work is authorized.
-
-The bounded-turn/rear-search iteration is complete locally. Zero-forward yaw=1.2 succeeded where the earlier yaw=0.8 scan stalled; rear visual reacquisition/approach/stop, four repeated side reacquisitions, timeout stopping, all original coordinate baselines and static/moving/blackout/occlusion visual regressions pass. Seventeen tests pass. See `BOUNDED_SEARCH.md` for measured limits and representative media. This is not obstacle/drop-off safety or hardware validation. Future sensing, motion veto, terrain planning and pet-like interaction steps are proposed only in `ROADMAP.md`.
-
-Iteration workflow now supports camera RGB sensing without video encoding: `--vision` runs perception; add `--video --dual-view` only for a recording. Targeted snapshots remain available for diagnosis. Keep dependencies, acceptance criteria and failure branches in a compact upfront plan; record phase timings without calling unattributed wall time model reasoning. That completed iteration included no training or hardware work; the newly proposed overnight scope is defined above.
-
-The current implementation direction is a small, visible simulation project:
-
-1. Reuse an existing policy to observe the response to a controlled push. Record the perturbation, body motion, and whether it recovers or falls.
-2. Turn toward a stationary ball at different positions, approach it, and stop before it. Read the ball position directly from simulation in this first version. Use existing locomotion policies with a small steering controller; no vision, gait training, or kicking in this scope.
-3. Follow a slowly moving, pausing, then departing scripted ball using direct simulator coordinates. Stop nearby and resume after it moves away; preserve the stationary mode.
-4. Verify actual motion and stopping using both rendered output and measured pose, heading, distance, velocity, contact/fall status, and stop/resume events. A runnable entry point alone is not evidence of success.
-
-This supersedes the immediate build order in the September 5 Character Bench design. That design remains a historical reference for layered control and measuring commanded versus actual behavior, not a prerequisite checklist for this experiment. General routine selection, blind legibility studies, and LLM comparison are deferred.
-
-Source inspection on September 9: the official `pollen-robotics/microduck_rl` checkout at `53b8971` contains `scripts/infer_policy.py`, `PolicyInference.set_vel_cmd`, `scene_ball.xml`, and an interactive push handler that overwrites trunk planar velocity. The runner imports NumPy, MuJoCo, and ONNX Runtime directly rather than importing the CUDA training stack. Its default BAM actuator path adds a separate dependency; the `--no-bam` path uses XML position actuators and must be labeled as a different physical model. Subsequently verified the 61-observation/14-action interface, rendered standing and push recovery, and implemented walking turns and stopping for three target positions; see the September 9 execution record below.
-
-The independent external checkout is ignored beneath `microduck-lab/microduck_rl/`. A fresh clone does not include external dependencies. The official runtime was also downloaded for source inspection; current model files come from its official Hugging Face policy set. The community lab was not installed. Preserve external histories and source; do not vendor them into this repository.
+The remaining sections are historical context and dated evidence. Earlier private-repository, cloud-backend and immediate build-order decisions do not override the public repository, local-only constraints or current roadmap above.
 
 ## Historical context — September 5
 
